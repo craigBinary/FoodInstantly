@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-05-2017 a las 02:05:50
+-- Tiempo de generación: 22-05-2017 a las 05:54:25
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 7.1.1
 
@@ -54,8 +54,9 @@ CREATE TABLE `tbl_cliente` (
 --
 
 INSERT INTO `tbl_cliente` (`id_cliente`, `nombre_cliente`, `apellido_cliente`, `celular`, `usuario_cliente`, `password_cliente`) VALUES
-(1, 'prueba', 'test', 88888888, 'prueba', '11'),
-(2, 'Craig', 'Fernandez', 999999999, 'craig', '202cb962ac59075b964b07152d234b70');
+(2, 'Craig', 'Fernandez', 999999999, 'craig', '202cb962ac59075b964b07152d234b70'),
+(3, 'Diego', 'Guajardo', 123456789, 'diego', '202cb962ac59075b964b07152d234b70'),
+(4, 'Marcelo', 'Acevedo', 2147483647, 'marcelo', '202cb962ac59075b964b07152d234b70');
 
 -- --------------------------------------------------------
 
@@ -423,7 +424,7 @@ ALTER TABLE `tbl_calificacion_restorant`
 -- AUTO_INCREMENT de la tabla `tbl_cliente`
 --
 ALTER TABLE `tbl_cliente`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `tbl_comuna`
 --
@@ -493,12 +494,6 @@ ALTER TABLE `tbl_plato`
   ADD CONSTRAINT `tbl_plato_ibfk_2` FOREIGN KEY (`id_restaurant`) REFERENCES `tbl_restaurant` (`id_restaurant`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `tbl_privilegio`
---
-ALTER TABLE `tbl_privilegio`
-  ADD CONSTRAINT `tbl_privilegio_ibfk_1` FOREIGN KEY (`id_privilegio`) REFERENCES `tbl_usuario_restaurant` (`id_privilegio`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Filtros para la tabla `tbl_restaurant`
 --
 ALTER TABLE `tbl_restaurant`
@@ -515,7 +510,8 @@ ALTER TABLE `tbl_solicitud`
 -- Filtros para la tabla `tbl_usuario_restaurant`
 --
 ALTER TABLE `tbl_usuario_restaurant`
-  ADD CONSTRAINT `tbl_usuario_restaurant_ibfk_1` FOREIGN KEY (`id_restaurant`) REFERENCES `tbl_restaurant` (`id_restaurant`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `tbl_usuario_restaurant_ibfk_1` FOREIGN KEY (`id_privilegio`) REFERENCES `tbl_privilegio` (`id_privilegio`),
+  ADD CONSTRAINT `tbl_usuario_restaurant_ibfk_2` FOREIGN KEY (`id_restaurant`) REFERENCES `tbl_restaurant` (`id_restaurant`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
