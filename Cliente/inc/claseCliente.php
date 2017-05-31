@@ -56,6 +56,130 @@ function registroUsuario($nombreUsuario,$apellidoUsuario,$celular,$usuario,$pass
       $db = null;
 }
 
+function listarPlatos(){
+
+$db = conecta();
+
+$consulta = "select * from bd_restorant.tbl_plato";
+$resultado= $db->prepare($consulta);
+$array= array();  
+if($resultado->execute() && $resultado->rowCount()>0){
+  $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+  foreach ($rows as $row) {
+    $array= $row;
+    json_encode($array);
+  }
+return $array;
+}else{
+  echo "Error";
+}
+  
+}
+/*
+function listarComunas(){
+
+$db = conecta();
+
+$consulta = "select * from bd_restorant.tbl_comuna";
+$resultado= $db->prepare($consulta);
+$array= array();  
+if($resultado->execute() && $resultado->rowCount()>0){
+  $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+  foreach ($rows as $row) {
+    $array[] = $row;
+    
+  }
+return json_encode($array);
+}else{
+  echo "Error";
+}
+  
+} */
+
+function listarComunas(){
+      $devolver = "";
+    // $devolver .= '<select id="select" name="agileinfo_search" required="">';
+
+      $db = conecta();
+      $consulta="select * from bd_restorant.tbl_comuna ";
+      $resultado=$db->prepare($consulta);
+      $resultado->execute();
+      $devolver .= '<option value="0" default selected> Seleccione </option>';
+      foreach ($resultado as $fila) {
+
+         $devolver .= '<option value= ' . $fila['id_comuna'] . ' > ' . $fila['nombre_comuna'] . '</option>';
+      }
+
+   // $devolver .= '</select>';
+        $db = null;
+        return str_replace("_"," ",$devolver);
+
+}
+
+function listarRestaurant(){
+      $devolver = "";
+    // $devolver .= '<select id="select" name="agileinfo_search" required="">';
+      $id = $_POST['id'];
+      $db = conecta();
+      $consulta="select id_restaurant,nombre_restaurant,id_comuna from bd_restorant.tbl_restaurant where id_comuna = :id ";
+      $resultado=$db->prepare($consulta);
+      //$resultado=$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+      $resultado-> bindParam(":id", $id, PDO::PARAM_INT);
+      $resultado->execute();
+      $devolver .= '<option value="0" default selected> Seleccione </option>';
+      foreach ($resultado as $fila) {
+
+         $devolver .= '<option value= ' . $fila['id_restaurant'] . ' > ' . $fila['nombre_restaurant'] . '</option>';
+      }
+
+   // $devolver .= '</select>';
+        $db = null;
+        return str_replace("_"," ",$devolver);
+
+}
+/*
+function listarRestaurant(){
+
+$db = conecta();
+
+$consulta = "select * from bd_restorant.tbl_restaurant";
+$resultado= $db->prepare($consulta);
+$local= array();  
+if($resultado->execute() && $resultado->rowCount()>0){
+  $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+  foreach ($rows as $row) {
+    $local[] = $row;
+   
+  }
+return json_encode($local);
+}else{
+  echo "Error";
+}
+  
+} */
+
+
+
+function listarTipoPlato(){
+  $db = conecta();
+try {
+$consulta = "select * from bd_restorant.tbl_tipo_plato";
+$resultado= $db->prepare($consulta);
+$resultado->execute();
+  $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+  } catch(PDOException $ex) {
+          echo "Ocurrió un error<br>";
+          echo $ex->getMessage();
+          exit;
+            }
+   foreach ($rows as $row) {
+    echo '<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
+          <a href="products.html">'.$row['nombre_tipo'].'</a></div>';
+    }
+  $db = null;
+}
+
+
 
 
 //fin clase
