@@ -272,12 +272,29 @@ ul.multi-column-dropdown h6 {
     color: #999;
     padding: 1.1em 1em;
     font-size: 1em;
-    float: left;
+    float: center;
+}
+/* se agregó*/
+.agileits_search input[type="text"], #select {
+    outline: none;
+    border:none;
+    background: #fff;
+    color: #999;
+    padding: 1.1em 1em;
+    font-size: 1em;
+    float: center;
 }
 .agileits_search input[type="text"]{
 	width: 57%; 
 }
 #agileinfo_search {
+    width: 23%;
+    background: #e0e3e5;
+    padding: 1.1em 1em;
+    color: #555;
+}
+/* se agregó */
+#select {
     width: 23%;
     background: #e0e3e5;
     padding: 1.1em 1em;
@@ -290,7 +307,7 @@ ul.multi-column-dropdown h6 {
     color: #fff;
     padding: 1.1em 1em;
     font-size: 1em;
-    width: 20%;
+    width: 40%;
 	-webkit-transition:.5s all;
 	-moz-transition:.5s all;
 	-o-transition:.5s all;
@@ -3088,6 +3105,15 @@ p.single-price-text {
 .agileits_search input[type="text"], #agileinfo_search { 
     padding: 1em; 
 }
+/* se agregó */
+@media(max-width:800px){
+.agileits_search input[type="text"], #select { 
+    padding: 1em; 
+}
+/* se agrego */
+#select,.agileits_search input[type="submit"] { 
+    padding: 1em; 
+}
 #agileinfo_search,.agileits_search input[type="submit"] { 
     padding: 1em; 
 }
@@ -3378,6 +3404,10 @@ ul.dropdown-menu.multi-column.columns-3, li.w3pages.open .dropdown-menu {
 .agileits_search input[type="text"], #agileinfo_search,.agileits_search input[type="submit"] {
     padding: 0.8em;
 }
+/*  se agregó */
+.agileits_search input[type="text"], #select,.agileits_search input[type="submit"] {
+    padding: 0.8em;
+}
 .agileits_search form {
     border: 12px solid rgba(0, 0, 0, 0.55);
 }
@@ -3385,6 +3415,10 @@ ul.dropdown-menu.multi-column.columns-3, li.w3pages.open .dropdown-menu {
     width: 55%;
 }
 #agileinfo_search {
+    width: 25%; 
+}
+/* se agregó */
+#select {
     width: 25%; 
 }
 .agileits_search {
@@ -3547,6 +3581,10 @@ h3.w3ls-title {
 #agileinfo_search {
     width: 27%;
 }
+/* se agregó */
+#select {
+    width: 27%;
+}
 .w3ls-add-grids a h6 { 
     font-size: 0.8em;
 }
@@ -3646,6 +3684,11 @@ img.w3order-img {
 #agileinfo_search {
     width: 35%;
 }
+/* se agrego */
+#select {
+    width: 35%;
+}
+
 .w3ls-add-grids {
     width: 46.5%; 
 }
@@ -3835,6 +3878,10 @@ img.w3order-img {
     border: 7px solid rgba(0, 0, 0, 0.55);
 }
 #agileinfo_search {
+    width: 50%;
+}
+/*se agrego */
+#select {
     width: 50%;
 }
 .agileits_search input[type="submit"] { 
@@ -4104,9 +4151,18 @@ ol.breadcrumb.w3l-crumbs {
     padding: 0; 
     font-size: 12px;
 }
+/*  se agrego  */
+.agileits_search input[type="text"], #select, .agileits_search input[type="submit"] {
+    padding: 0.6em;
+    font-size: 0.9em; 
+}
 .agileits_search input[type="text"], #agileinfo_search, .agileits_search input[type="submit"] {
     padding: 0.6em;
 	font-size: 0.9em; 
+}
+/*  se agrego  */
+.agileits_search input[type="text"], #select {
+    padding: .5em;
 }
 .agileits_search input[type="text"], #agileinfo_search {
     padding: .5em;
