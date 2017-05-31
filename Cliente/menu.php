@@ -4,6 +4,11 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<?php
+include 'inc/claseCliente.php';
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -56,45 +61,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="wthree-menu">
 		<img src="images/i2.jpg" class="w3order-img" alt=""/>
 		<div class="container">
-			<h3 class="w3ls-title">Menu</h3>
-			<p class="w3lsorder-text">Here your Staple Food Varieties</p>
+			<h3 class="w3ls-title">Tipos de comidas</h3>
+			<p class="w3lsorder-text">Aquí puedes seleccionar la variedad de comidas</p>
 			<div class="menu-agileinfo">
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Breakfast</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Salads</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Hot Food</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Breads</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Deli Pots & Little Pots</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Snacks & Treats</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Drinks</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> South Indian</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Catering</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Soups</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Lunchbox</a>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-					<a href="products.html"> Dinner</a>
-				</div>
+				<?php    
+				$lista = new claseCliente();
+				$lista->listarTipoPlato();
+				?>
 				<div class="clearfix"> </div>
 			</div>
 			<div class="w3spl-menu">
@@ -155,38 +128,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 	</div>
 	<!-- //add-products -->
-	<!-- subscribe -->
-	<div class="subscribe agileits-w3layouts">
-		<div class="container">
-			<div class="col-md-6 social-icons w3-agile-icons">
-				<h4>Keep in touch</h4>
-				<ul>
-					<li><a href="#" class="fa fa-facebook icon facebook"> </a></li>
-					<li><a href="#" class="fa fa-twitter icon twitter"> </a></li>
-					<li><a href="#" class="fa fa-google-plus icon googleplus"> </a></li>
-					<li><a href="#" class="fa fa-dribbble icon dribbble"> </a></li>
-					<li><a href="#" class="fa fa-rss icon rss"> </a></li>
-				</ul>
-				<ul class="apps">
-					<li><h4>Download Our app : </h4> </li>
-					<li><a href="#" class="fa fa-apple"></a></li>
-					<li><a href="#" class="fa fa-windows"></a></li>
-					<li><a href="#" class="fa fa-android"></a></li>
-				</ul>
-			</div>
-			<div class="col-md-6 subscribe-right">
-				<h3 class="w3ls-title">Subscribe to Our <br><span>Newsletter</span></h3>
-				<form action="#" method="post">
-					<input type="email" name="email" placeholder="Enter your Email..." required="">
-					<input type="submit" value="Subscribe">
-					<div class="clearfix"> </div>
-				</form>
-				<img src="images/i1.png" class="sub-w3lsimg" alt=""/>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-	<!-- //subscribe -->
+	
 	<!-- footer -->
 	<div class="footer agileits-w3layouts">
 		<div class="container">
