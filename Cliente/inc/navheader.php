@@ -21,19 +21,19 @@
               <div class="row">
                 <div class="col-sm-4">
                   <ul class="multi-column-dropdown">
-                    <h6>Food type</h6>
-                    <li><a href="menu.html">Breakfast</a></li>
+                    <li><a href="menu.html"><h6>Tipos de comida</h6></a></li>
+                   <!-- <li><a href="menu.html">Breakfast</a></li>
                     <li><a href="menu.html">Lunch</a></li>
-                    <li><a href="menu.html">Dinner</a></li>
+                    <li><a href="menu.html">Dinner</a></li> -->
                   </ul>
                 </div>
                 <div class="col-sm-4">
                   <ul class="multi-column-dropdown">
-                    <h6>Cuisine</h6>
-                    <li><a href="menu.html">Indian Recipes</a></li>
+                   <li><a href="menu.html"> <h6>Mis favoritos</h6></a></li>
+                   <!-- <li><a href="menu.html">Indian Recipes</a></li>
                     <li><a href="menu.html">American Recipes</a></li>
                     <li><a href="menu.html">French Recipes</a></li>
-                    <li><a href="menu.html">Italian Recipes</a></li>
+                    <li><a href="menu.html">Italian Recipes</a></li>  -->
                   </ul>
                 </div>
                 <div class="col-sm-4">

@@ -19,6 +19,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- //Custom Theme files -->
 <!-- js -->
 <script src="js/jquery-2.2.3.min.js"></script>
+
 <!-- //js -->
 <!-- web-fonts -->
 <link href="//fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
@@ -43,17 +44,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<h2>Ahorra tiempo haciendo tu pedido <br> <span>llegar y comer!</span></h2>
 				<div class="agileits_search">
 					<form action="#" method="post">
-						<input name="Search" type="text" placeholder="Ingresa tu comuna" required="">
+					
+					<select id="select" name="agileinfo_search" required="">
+						<!-- <option value="">Seleccione</option> -->
+					</select> 
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<select id="agileinfo_search" name="agileinfo_search" required="">
-							<option value="">Popular Cities</option>
-							<option value="navs">New York</option>
-							<option value="quotes">Los Angeles</option>
-							<option value="videos">Chicago</option>
-							<option value="news">Phoenix</option>
-							<option value="notices">Fort Worth</option>
-							<option value="all">Other</option>
-						</select>
-						<input type="submit" value="Buscar">
+						<!--	<option value="">Seleccione</option> -->
+						</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="submit" value="Buscar" id="buscar">
 					</form>
 				</div>
 			</div>
@@ -298,6 +297,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				});
 			});
 	</script>
+
 	<!-- //end-smooth-scrolling -->
 	<!-- smooth-scrolling-of-move-up -->
 	<script type="text/javascript">
@@ -320,5 +320,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/ajax.js"></script>
 </body>
 </html>

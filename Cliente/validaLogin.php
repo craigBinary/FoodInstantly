@@ -10,12 +10,12 @@
         if($ob->validaLoginCliente($_POST['username'],$pass)){
             $_SESSION['usuario']=$_POST['username'];
             $_SESSION['contraseña']=$_POST['password'];
-			      header('Location: index.html');
+			      header('Location: index.php');
 
     		}else{
     		echo"<script>
     		alert('Error en usuario y/o contraseña');
-    		window.location.href='index.html';
+    		window.location.href='index.php';
     		</script>";
 
     		}
