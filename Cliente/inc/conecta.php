@@ -4,7 +4,7 @@
 
  function conecta(){
   try{
-      $db = new PDO("mysql:host=localhost","root","");
+      $db = new PDO("mysql:host=localhost","root","", array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES  \'UTF8\''));
       $db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY , true);/* db es el objeto de la clase PDO el cual llama
        * al metodo set attribute con parametros use buffered, la cual almacena el string de conexion a mysql en un espacio de memoria.
        */
