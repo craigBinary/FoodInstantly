@@ -21,7 +21,7 @@
               <div class="row">
                 <div class="col-sm-4">
                   <ul class="multi-column-dropdown">
-                    <li><a href="menu.html"><h6>Tipos de comida</h6></a></li>
+                    <li><a href="menu.php"><h6>Tipos de comida</h6></a></li>
                    <!-- <li><a href="menu.html">Breakfast</a></li>
                     <li><a href="menu.html">Lunch</a></li>
                     <li><a href="menu.html">Dinner</a></li> -->

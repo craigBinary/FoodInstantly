@@ -56,6 +56,7 @@ function registroUsuario($nombreUsuario,$apellidoUsuario,$celular,$usuario,$pass
       $db = null;
 }
 
+/*
 function listarPlatos(){
 
 $db = conecta();
@@ -74,7 +75,7 @@ return $array;
   echo "Error";
 }
   
-}
+} */
 /*
 function listarComunas(){
 
@@ -97,28 +98,26 @@ return json_encode($array);
 } */
 
 function listarComunas(){
-      $devolver = "";
-    // $devolver .= '<select id="select" name="agileinfo_search" required="">';
 
+      $devolver = "";
       $db = conecta();
       $consulta="select * from bd_restorant.tbl_comuna ";
       $resultado=$db->prepare($consulta);
       $resultado->execute();
-      $devolver .= '<option value="0" default selected> Seleccione </option>';
+      $devolver .= '<option value="0" default selected> Seleccione Comuna</option>';
       foreach ($resultado as $fila) {
 
          $devolver .= '<option value= ' . $fila['id_comuna'] . ' > ' . $fila['nombre_comuna'] . '</option>';
       }
 
-   // $devolver .= '</select>';
         $db = null;
         return str_replace("_"," ",$devolver);
 
 }
 
 function listarRestaurant(){
+
       $devolver = "";
-    // $devolver .= '<select id="select" name="agileinfo_search" required="">';
       $id = $_POST['id'];
       $db = conecta();
       $consulta="select id_restaurant,nombre_restaurant,id_comuna from bd_restorant.tbl_restaurant where id_comuna = :id ";
@@ -126,15 +125,14 @@ function listarRestaurant(){
       //$resultado=$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $resultado-> bindParam(":id", $id, PDO::PARAM_INT);
       $resultado->execute();
-      $devolver .= '<option value="0" default selected> Seleccione </option>';
+      $devolver .= '<option value="0" default selected> Seleccione Restaurant</option>';
       foreach ($resultado as $fila) {
 
          $devolver .= '<option value= ' . $fila['id_restaurant'] . ' > ' . $fila['nombre_restaurant'] . '</option>';
       }
 
-   // $devolver .= '</select>';
-        $db = null;
-        return str_replace("_"," ",$devolver);
+      $db = null;
+      return str_replace("_"," ",$devolver);
 
 }
 /*
@@ -179,7 +177,54 @@ $resultado->execute();
   $db = null;
 }
 
+function listarPlatos(){
 
+  $db = conecta();
+
+  $consulta = "select * from bd_restorant.tbl_plato where id_tipo_plato = 2 and estado_plato = 1 ";
+  $resultado= $db->prepare($consulta);
+  $array= array();  
+  if($resultado->execute() && $resultado->rowCount()>0){
+    $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($rows as $row) {
+    echo '<div class="col-xs-6 col-sm-6 product-grids"> ';
+     echo   '<div class="flip-container flip-container1">';
+     echo     '<div class="flipper agile-products">';
+     echo       '<div class="front"> ';
+     echo         '<img src="images/g1.jpg" class="img-responsive" alt="img"> ';
+     echo         '<div class="agile-product-text"> ';             
+                   echo "<h5>".$row['nombre_plato']."</h5>";  
+            echo "</div>
+                </div> "; 
+            echo  '<div class="back">';
+            echo  "<h4>".$row['nombre_plato']."</h4>";
+            echo  "<p>".$row['descripcion_plato']."</p>";
+            echo  "<p>"."Tiempo de preparacion:"." ".$row['tiempo_preparacion']."</p>";
+            echo  "<h6><sup>$</sup>".$row['precio']."</h6>";
+            echo    '<form action="#" method="post">
+                    <input type="hidden" name="id_restaurant" id="id_restaurant" value="'.$row['id_restaurant'].'" > 
+                    <input type="hidden" name="id_plato" id="id_plato" value="'.$row['id_plato'].'" > 
+                    <input type="hidden" name="cmd" value="_cart">
+                    <input type="hidden" name="add" value="1"> 
+                    <input type="hidden" name="w3ls_item" value="'.$row['nombre_plato'].'"> 
+                    <input type="hidden" name="amount" value="'.$row['precio'].'"> 
+                    <button type="submit" class="w3ls-cart pw3ls-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i> Agregar</button>
+                    <span class="w3-agile-line"> </span>
+                    <a href="#" data-toggle="modal" data-target="#myModal1">Más</a>
+                  </form>
+                </div>
+              </div>
+            </div> 
+          </div> ';
+      
+    }
+  
+  }else{
+    echo "<script languaje='javascript'>alert('Hubo un error');</script>";
+  }
+
+  $db=null;
+}
 
 
 //fin clase

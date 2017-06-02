@@ -50,7 +50,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</select> 
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<select id="agileinfo_search" name="agileinfo_search" required="">
-						<!--	<option value="">Seleccione</option> -->
+						<option value="0" default selected> Seleccione Restaurant</option>
 						</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="submit" value="Buscar" id="buscar">
 					</form>
