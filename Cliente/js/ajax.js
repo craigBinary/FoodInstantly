@@ -29,7 +29,7 @@ $(document).ready(function(){
 		$('#select').html(listas_rep)
 	})
 	.fail(function(){
-		alert('Hubo un problema en primer select')
+		alert('Hubo un problema en cargar lista de restaurant')
 	})
 
 	$('#select').on('change',function(){
@@ -50,15 +50,17 @@ $(document).ready(function(){
 	$('#buscar').on('click',function(){
 		var comuna = $('#select').val()
 		var restaurant = $('#agileinfo_search').val()
-		/* if(comuna == 0 || restaurant == 0){
+		 if(comuna == 0 || restaurant == 0){
 			alert('Debe seleccionar comuna y restaurant')
-		}  */
+			return false;
+		} 
 		if(comuna == 0 || comuna == ""){
 			alert('Debe seleccionar una comuna ')
+			return false;
 		}
 	})	
-/*
+
 	$('#buscar').on('click',function(){
-	$('#select option:selectd').text()
-	})*/
+	document.getElementById("id_restaurant").value = $('#agileinfo_search option:selected').val()
+	})
 })
