@@ -80,12 +80,13 @@ return false;
 			<h3 class="w3ls-title w3ls-title1">Registrate para obtener una cuenta</h3>
 			<div class="login-agileinfo">
 				<form action="validaRegistro.php" method="post" name="form" onsubmit="return validar(document.form);">
-					<input class="agile-ltext" type="text" name="nombre" placeholder="Nombre" required="">
-          <input class="agile-ltext" type="text" name="apellido" placeholder="Apellido" required="">
-          <input class="agile-ltext" type="text" name="celular" placeholder="Celular" required="">
-          <input class="agile-ltext" type="text" name="Username" placeholder="Nombre de usuario" required="">
-					<input class="agile-ltext" type="password" name="password" id="password" placeholder="Contraseña" required="">
-          <input class="agile-ltext" type="password" name="password2" id="password2" placeholder="Confirme contraseña" required="">
+				  <input class="agile-ltext" type="text" name="nombre" placeholder="Nombre" required="">
+		          <input class="agile-ltext" type="text" name="apellido" placeholder="Apellido" required="">
+		          <input class="agile-ltext" type="text" name="celular" placeholder="Celular" required="">
+		          <input class="agile-ltext" type="text" name="Username" placeholder="Nombre de usuario" required="">
+		          <input class="agile-ltext" type="email" name="mail" placeholder="Correo electrónico" required="">
+				  <input class="agile-ltext" type="password" name="password" id="password" placeholder="Contraseña" required="">
+          		  <input class="agile-ltext" type="password" name="password2" id="password2" placeholder="Confirme contraseña" required="">
 
 					<div class="wthreelogin-text">
 						<ul>
