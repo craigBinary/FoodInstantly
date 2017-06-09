@@ -3,22 +3,24 @@
 	include ('inc/claseCliente.php');
     //session_start();
 	$obj=new claseCliente();
-
-    if(!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['entrar'])){
+    
+    if(isset($_POST['entrar'])){
+    if(!empty($_POST['username']) && !empty($_POST['password'])){
 		$pass=$_POST['password'];
 		$pass= md5($pass);
-        if($ob->validaLoginCliente($_POST['username'],$pass)){
+        
+        if($obj->validaLoginCliente($_POST['username'],$pass)){
             $_SESSION['usuario']=$_POST['username'];
             $_SESSION['contraseña']=$_POST['password'];
 			      header('Location: index.php');
-
+                 
     		}else{
     		echo"<script>
     		alert('Error en usuario y/o contraseña');
-    		window.location.href='index.php';
+    		window.location.href='login.php';
     		</script>";
 
     		}
 	  }
-
+    }
 ?>
