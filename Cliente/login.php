@@ -59,11 +59,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<h3 class="w3ls-title w3ls-title1">Inicio de sesión</h3>
 			<div class="login-agileinfo">
 				<form action="validaLogin.php" method="post">
-					<?php
-					echo '
+					
 					<input class="agile-ltext" type="text" name="username" placeholder="Usuario" required="">
-					<input class="agile-ltext" type="password" name="password" placeholder="Contraseña" required=""> ' ;
-					?>
+					<input class="agile-ltext" type="password" name="password" placeholder="Contraseña" required=""> 
+					
 					<div class="wthreelogin-text">
 						<ul>
 							<li>
@@ -75,7 +74,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</ul>
 						<div class="clearfix"> </div>
 					</div>
-					<input type="submit" value="ENTRAR" id="entrar">
+					<input type="submit" value="ENTRAR" id="entrar" name="entrar">
 				</form>
 				<p>No tienes una cuenta? <a href="signup.php"> Registrarse aquí!</a></p>
 			</div>
