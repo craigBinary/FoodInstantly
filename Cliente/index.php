@@ -43,7 +43,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="container">
 				<h2>Ahorra tiempo haciendo tu pedido <br> <span>llegar y comer!</span></h2>
 				<div class="agileits_search">
-					<form action="#" method="post">
+					<form action="productos.php" method="post">
 					
 					<select id="select" name="agileinfo_search" required="">
 						<!-- <option value="">Seleccione</option> -->
@@ -52,6 +52,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<select id="agileinfo_search" name="agileinfo_search" required="">
 						<option value="0" default selected> Seleccione Restaurant</option>
 						</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="hidden" id="id_restaurant" name="id_restaurant" />
 						<input type="submit" value="Buscar" id="buscar">
 					</form>
 				</div>
