@@ -4,14 +4,14 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<title>Staple Food a Restaurants Category Bootstrap Responsive website Template | Products :: w3layouts</title>
+<title>Menú de platos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Staple Food Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Custom Theme files -->
 <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
@@ -79,15 +79,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="clearfix"> </div>
 				</div>
 				<div class="products-row">
-				<?php	include ('inc/claseCliente.php'); 
+
+				<?php	
+					include ('inc/claseCliente.php'); 
 					$lista= new claseCliente();
-					$lista->listarPlatos();
+					$id_restaurant = $_POST['id_restaurant'];
+					$lista->listarPlatos($id_restaurant);
 
 
 				?>
 					<div class="clearfix"> </div>
 				</div>
 			</div>
+			
 			<div class="col-md-3 rsidebar">
 				<div class="rsidebar-top">
 					<div class="slider-left">
@@ -272,7 +276,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 	</div>
 	<!-- //dishes --> 
-	<!-- modal --> 
+	<!-- modal -->
 	<div class="modal video-modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -280,56 +284,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>						
 				</div>
 				<section>
-					<div class="modal-body">
-						<div class="col-md-5 modal_body_left">
-							<img src="images/s1.jpg" alt=" " class="img-responsive">
-						</div>
-						<div class="col-md-7 modal_body_right single-top-right"> 
-							<h3 class="item_name">France Special Dish</h3>
-							<p>Proin placerat urna et consequat efficitur, sem odio blandit enim</p>
-							<div class="single-rating">
-								<ul>
-									<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-									<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-									<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-									<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-									<li class="w3act"><i class="fa fa-star-o" aria-hidden="true"></i></li>
-									<li class="rating">20 reviews</li>
-									<li><a href="#">Add your review</a></li>
-								</ul> 
-							</div>
-							<div class="single-price">
-								<ul>
-									<li>$18</li>  
-									<li><del>$20</del></li> 
-									<li><span class="w3off">10% OFF</span></li> 
-									<li>Ends on : Dec,5th</li>
-									<li><a href="#"><i class="fa fa-gift" aria-hidden="true"></i> Coupon</a></li>
-								</ul>	
-							</div> 
-							<p class="single-price-text">Fusce a egestas nibh, eget ornare erat. Proin placerat, urna et consequat efficitur, sem odio blandit enim, sit amet euismod turpis est mattis lectus. Vestibulum maximus quam et quam egestas imperdiet. In dignissim auctor viverra. </p>
-							<form action="#" method="post">
-								<input type="hidden" name="cmd" value="_cart" />
-								<input type="hidden" name="add" value="1" /> 
-								<input type="hidden" name="w3ls_item" value="France Special" /> 
-								<input type="hidden" name="amount" value="18.00" /> 
-								<button type="submit" class="w3ls-cart" ><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</button>
-							</form>
-							<a href="#" class="w3ls-cart w3ls-cart-like"><i class="fa fa-heart-o" aria-hidden="true"></i> Add to Wishlist</a>
-							<div class="single-page-icons social-icons"> 
-								<ul>
-									<li><h4>Share on</h4></li>
-									<li><a href="#" class="fa fa-facebook icon facebook"> </a></li>
-									<li><a href="#" class="fa fa-twitter icon twitter"> </a></li>
-									<li><a href="#" class="fa fa-google-plus icon googleplus"> </a></li>
-									<li><a href="#" class="fa fa-dribbble icon dribbble"> </a></li>
-									<li><a href="#" class="fa fa-rss icon rss"> </a></li> 
-								</ul>
-							</div> 
-						</div> 
-						<div class="clearfix"> </div>
-					</div>
-				</section>
+          		<div class="modal-body">
+
+          		</div>
+          		</section>
+				<!-- aquí va la llamada de la seccion  -->
+				<!-- $id_restaurant; pasarle el valor con jquery, falta id de plato  ,$id_plato-->
+				<?php
+				 
+					//$lista-> previaRestorant($id_restaurant,$id_plato);
+				 ?> 
 			</div>
 		</div>
 	</div> 
@@ -459,5 +423,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/ajax_previa.js"></script>
 </body>
 </html>
