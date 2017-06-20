@@ -16,7 +16,7 @@
           <li><a href="index.php" class="active">Home</a></li>
           <!-- Mega Menu -->
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menú <b class="caret"></b></a>
             <ul class="dropdown-menu multi-column columns-3">
               <div class="row">
                 <div class="col-sm-4">
@@ -50,10 +50,10 @@
             </ul>
           </li>
           <li><a href="about.html">About</a></li>
-          <li class="w3pages"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages <span class="caret"></span></a>
+          <li class="w3pages"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi Perfil <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="icons.html">Web Icons</a></li>
-              <li><a href="codes.html">Short Codes</a></li>
+              <li><a href="editarDatos.php">Editar Datos</a></li>
+              <li><a href="#">Mis Pedidos</a></li>
             </ul>
           </li>
           <li><a href="contact.html">Contact Us</a></li>
