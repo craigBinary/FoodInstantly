@@ -36,7 +36,6 @@ if (document.getElementById('checkbox').checked){
   }
   if (p1 != p2) {
   alert("La contraseña debe coincidir");
-  console.log("Entre");
   return false;
 
   }
@@ -68,7 +67,7 @@ return false;
 	<!-- breadcrumb -->
 	<div class="container">
 		<ol class="breadcrumb w3l-crumbs">
-			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+			<li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
 			<li class="active">Registro</li>
 		</ol>
 	</div>
