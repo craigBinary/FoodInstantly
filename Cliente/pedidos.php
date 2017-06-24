@@ -9,7 +9,7 @@ extract($_POST,EXTR_PREFIX_SAME,"hacerPedido");
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pago</title>
+    <title>Pago Online</title>
     <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
     <link href="css/style.css" type="text/css" rel="stylesheet" media="all">  
     <!-- Bootstrap -->
