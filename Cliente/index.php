@@ -93,14 +93,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="col-md-3 col-sm-3 col-xs-6 order-w3lsgrids">
 					<div class="order-w3text">
 						<i class="fa fa-map" aria-hidden="true"></i>
-						<h5>Seleccione el lugar</h5>
+						<h5>Seleccione comuna</h5>
 						<span>1</span>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-3 col-xs-6 order-w3lsgrids">
 					<div class="order-w3text">
 						<i class="fa fa-cutlery" aria-hidden="true"></i>
-						<h5>Seleccione plato</h5>
+						<h5>Seleccione comida</h5>
 						<span>2</span>
 					</div>
 				</div>

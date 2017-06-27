@@ -53,7 +53,7 @@
           <li class="w3pages"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi Perfil <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="editarDatos.php">Editar Datos</a></li>
-              <li><a href="misPedidos.php">Mis Pedidos</a></li>
+              <li><a href="#">Mis Pedidos</a></li>
             </ul>
           </li>
           <li><a href="contact.html">Contact Us</a></li>

@@ -71,7 +71,29 @@
         });
     </script>  
 	<!-- //cart-js --> 
-	<!-- Owl-Carousel-JavaScript -->	 
+	<!-- Owl-Carousel-JavaScript -->
+	<script src="js/owl.carousel.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#owl-demo").owlCarousel ({
+				items : 3,
+				lazyLoad : true,
+				autoPlay : true,
+				pagination : true,
+			});
+		});
+	</script>
+	<!-- //Owl-Carousel-JavaScript -->  	
+	<!-- the jScrollPane script -->
+	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" id="sourcecode">
+		$(function()
+		{
+			$('.scroll-pane').jScrollPane();
+		});
+	</script>
+	<!-- //the jScrollPane script -->
+	<script type="text/javascript" src="js/jquery.mousewheel.js"></script> <!-- the mouse wheel plugin --> 
 	<!-- start-smooth-scrolling -->
 	<script src="js/SmoothScroll.min.js"></script>  
 	<script type="text/javascript" src="js/move-top.js"></script>
@@ -106,6 +128,7 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/bootstrap.js"></script>    
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/ajax_previa.js"></script>   
 </body>
 </html>
