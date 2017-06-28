@@ -15,7 +15,11 @@ function error_log($msg){
 
   function validaLoginCliente($usuario, $pass){
         $db = conecta();
+<<<<<<< HEAD
         $consulta="SELECT usuario_cliente,password_cliente from sistema_restaurant2.0.tbl_cliente
+=======
+        $consulta="SELECT usuario_cliente,password_cliente from sistema_restaurant.tbl_cliente
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
                    where usuario_cliente=:usuario and password_cliente=:pass ";
         $resultado = $db->prepare($consulta);
         if($resultado->execute(array(":usuario"=>$usuario,":pass"=>$pass)) && $resultado->rowCount()>0){
@@ -29,14 +33,22 @@ function error_log($msg){
 function registroUsuario($nombreUsuario,$apellidoUsuario,$celular,$usuario,$mail,$pass){
 
   $db = conecta();
+<<<<<<< HEAD
   $consulta="SELECT usuario_cliente from sistema_restaurant2.0.tbl_cliente where usuario_cliente=?";
+=======
+  $consulta="SELECT usuario_cliente from sistema_restaurant.tbl_cliente where usuario_cliente=?";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
   $resultado=$db->prepare($consulta);
   $existe=false;
   if($resultado->execute(array($usuario)) && $resultado->rowCount()>0){
     $existe=true;
   }
   if(!$existe){
+<<<<<<< HEAD
     $insert="INSERT into sistema_restaurant2.0.tbl_cliente (id_cliente,nombre_cliente, apellido_cliente,celular, usuario_cliente, mail, password_cliente)
+=======
+    $insert="INSERT into sistema_restaurant.tbl_cliente (id_cliente,nombre_cliente, apellido_cliente,celular, usuario_cliente, mail, password_cliente)
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
     values(NULL,:nombreUsuario,:apellidoUsuario,:celular,:usuario,:mail,:pass)";
     $resultado = $db->prepare($insert);
      if ($resultado->execute(array(":nombreUsuario" => $nombreUsuario,
@@ -63,7 +75,11 @@ function listarPlatos(){
 
 $db = conecta();
 
+<<<<<<< HEAD
 $consulta = "select * from sistema_restaurant2.0.tbl_plato";
+=======
+$consulta = "select * from sistema_restaurant.tbl_plato";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
 $resultado= $db->prepare($consulta);
 $array= array();  
 if($resultado->execute() && $resultado->rowCount()>0){
@@ -83,7 +99,11 @@ function listarComunas(){
 
 $db = conecta();
 
+<<<<<<< HEAD
 $consulta = "select * from sistema_restaurant2.0.tbl_comuna";
+=======
+$consulta = "select * from sistema_restaurant.tbl_comuna";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
 $resultado= $db->prepare($consulta);
 $array= array();  
 if($resultado->execute() && $resultado->rowCount()>0){
@@ -103,7 +123,11 @@ function listarComunas(){
 
       $devolver = "";
       $db = conecta();
+<<<<<<< HEAD
       $consulta="SELECT * from sistema_restaurant2.0.tbl_comuna ";
+=======
+      $consulta="SELECT * from sistema_restaurant.tbl_comuna ";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
       $resultado=$db->prepare($consulta);
       $resultado->execute();
       $devolver .= '<option value="0" default selected> Seleccione Comuna</option>';
@@ -122,7 +146,11 @@ function listarRestaurant(){
       $devolver = "";
       $id = $_POST['id'];
       $db = conecta();
+<<<<<<< HEAD
       $consulta="SELECT id_restaurant,nombre_restaurant,id_comuna,direccion from sistema_restaurant2.0.tbl_restaurant where estado_restaurant='activo' and id_comuna = :id ";
+=======
+      $consulta="SELECT id_restaurant,nombre_restaurant,id_comuna,direccion from sistema_restaurant.tbl_restaurant where estado_restaurant='activo' and id_comuna = :id ";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
       $resultado=$db->prepare($consulta);
       //$resultado=$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $resultado-> bindParam(":id", $id, PDO::PARAM_INT);
@@ -142,7 +170,11 @@ function listarRestaurant(){
 
 $db = conecta();
 
+<<<<<<< HEAD
 $consulta = "select * from sistema_restaurant2.0.tbl_restaurant";
+=======
+$consulta = "select * from sistema_restaurant.tbl_restaurant";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
 $resultado= $db->prepare($consulta);
 $local= array();  
 if($resultado->execute() && $resultado->rowCount()>0){
@@ -161,7 +193,11 @@ return json_encode($local);
 function listarTipoPlato(){
   $db = conecta();
 try {
+<<<<<<< HEAD
 $consulta = "select * from sistema_restaurant2.0.tbl_tipo_plato";
+=======
+$consulta = "select * from sistema_restaurant.tbl_tipo_plato";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
 $resultado= $db->prepare($consulta);
 $resultado->execute();
   $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -181,7 +217,11 @@ $resultado->execute();
 function listarTipoPlato($id_restaurant){
   $db = conecta();
 try {
+<<<<<<< HEAD
 $consulta = "SELECT DISTINCT tp.id_tipo_plato,tp.nombre_tipo FROM sistema_restaurant2.0.tbl_plato p, sistema_restaurant2.0.tbl_restaurant r, sistema_restaurant2.0.tbl_tipo_plato tp WHERE p.id_restaurant=:id_restaurant and p.id_tipo_plato=tp.id_tipo_plato ";
+=======
+$consulta = "SELECT DISTINCT tp.id_tipo_plato,tp.nombre_tipo FROM sistema_restaurant.tbl_plato p, sistema_restaurant.tbl_restaurant r, sistema_restaurant.tbl_tipo_plato tp WHERE p.id_restaurant=:id_restaurant and p.id_tipo_plato=tp.id_tipo_plato ";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
 $resultado= $db->prepare($consulta);
 $resultado->execute(array(":id_restaurant"=>$id_restaurant));
 $id_tipo="";
@@ -203,7 +243,11 @@ function listarPlatos($id_restaurant){
 
   $db = conecta();
 
+<<<<<<< HEAD
   $consulta = "SELECT r.id_restaurant,tp.*, p.* from sistema_restaurant2.0.tbl_restaurant r,sistema_restaurant2.0.tbl_plato p,sistema_restaurant2.0.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
+=======
+  $consulta = "SELECT r.id_restaurant,tp.*, p.* from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_plato p,sistema_restaurant.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
   and p.id_tipo_plato=tp.id_tipo_plato ORDER BY p.precio ASC ";
   $resultado= $db->prepare($consulta);
     
@@ -263,7 +307,11 @@ function listarPlatos2($id_restaurant,$id_tipo){
   $db = conecta();
   
   
+<<<<<<< HEAD
     $consulta = "SELECT r.id_restaurant,tp.*, p.* from sistema_restaurant2.0.tbl_restaurant r,sistema_restaurant2.0.tbl_plato p,sistema_restaurant2.0.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
+=======
+    $consulta = "SELECT r.id_restaurant,tp.*, p.* from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_plato p,sistema_restaurant.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
       and p.id_tipo_plato=tp.id_tipo_plato and p.id_tipo_plato=:id_tipo ORDER BY p.precio ASC";
    
   $resultado= $db->prepare($consulta);
@@ -326,10 +374,17 @@ function listarPlatos2(){
   $id_restaurant=intval($_POST['id_restaurant']);
   $id_tipo=intval($_POST['id_tipo']);
   if($id_tipo !=0){
+<<<<<<< HEAD
     $consulta = "select r.id_restaurant,tp.*, p.* from sistema_restaurant2.0.tbl_restaurant r,sistema_restaurant2.0.tbl_plato p,sistema_restaurant2.0.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
       and p.id_tipo_plato=tp.id_tipo_plato and p.id_tipo_plato=:id_tipo ORDER BY p.precio ASC";
   }else{
     $consulta = "select r.id_restaurant,tp.*, p.* from sistema_restaurant2.0.tbl_restaurant r,sistema_restaurant2.0.tbl_plato p,sistema_restaurant2.0.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
+=======
+    $consulta = "select r.id_restaurant,tp.*, p.* from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_plato p,sistema_restaurant.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
+      and p.id_tipo_plato=tp.id_tipo_plato and p.id_tipo_plato=:id_tipo ORDER BY p.precio ASC";
+  }else{
+    $consulta = "select r.id_restaurant,tp.*, p.* from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_plato p,sistema_restaurant.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
        and p.id_tipo_plato=tp.id_tipo_plato ORDER BY p.precio ASC";
   }
   
@@ -399,7 +454,11 @@ $id_plato=intval($_POST['id']);
 $db = conecta();
 
  $consulta = "SELECT r.id_restaurant, r.nombre_restaurant, r.info_restaurant, r.id_comuna, r.num_contacto, r.email , r.direccion, r.calificacion , c.nombre_comuna, p.nombre_plato, tp.nombre_tipo, p.descripcion_plato   
+<<<<<<< HEAD
  from sistema_restaurant2.0.tbl_restaurant r,sistema_restaurant2.0.tbl_comuna c, sistema_restaurant2.0.tbl_plato p, sistema_restaurant2.0.tbl_tipo_plato tp  
+=======
+ from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_comuna c, sistema_restaurant.tbl_plato p, sistema_restaurant.tbl_tipo_plato tp  
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
  where r.id_comuna=c.id_comuna and r.id_restaurant=p.id_restaurant and p.id_tipo_plato=tp.id_tipo_plato and r.id_restaurant =:id_restaurant and p.id_plato=:id_plato";
   $resultado= $db->prepare($consulta);
   //$array= array();  
@@ -455,7 +514,11 @@ function mostrarRestorant($id_restaurant){
 $db = conecta();
 
  $consulta = "SELECT r.id_restaurant, r.nombre_restaurant, r.info_restaurant, r.id_comuna, r.num_contacto, r.email , r.direccion, r.calificacion ,r.mapa, c.nombre_comuna  
+<<<<<<< HEAD
  from sistema_restaurant2.0.tbl_restaurant r,sistema_restaurant2.0.tbl_comuna c 
+=======
+ from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_comuna c 
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
  where r.id_comuna=c.id_comuna and r.id_restaurant =:id_restaurant ";
   $resultado= $db->prepare($consulta);
  
@@ -529,7 +592,11 @@ function mostrarDatosPerfil($id_cliente){
 
 $db = conecta();
 
+<<<<<<< HEAD
   $consulta = "SELECT * from sistema_restaurant2.0.tbl_cliente
+=======
+  $consulta = "SELECT * from sistema_restaurant.tbl_cliente
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
   where id_cliente=:id_cliente ";
   $resultado= $db->prepare($consulta);
   if($resultado->execute(array(":id_cliente"=>$id_cliente)) && $resultado->rowCount()>0){
@@ -565,7 +632,11 @@ $db = conecta();
 function updDatosCliente($id_cliente,$nombreUsuario,$apellidoUsuario,$celular,$mail){
 
 $db = conecta();
+<<<<<<< HEAD
 $update="UPDATE sistema_restaurant2.0.tbl_cliente SET nombre_cliente=:nombreUsuario, apellido_cliente=:apellidoUsuario ,celular=:celular ,mail=:mail WHERE id_cliente=:id_cliente ";
+=======
+$update="UPDATE sistema_restaurant.tbl_cliente SET nombre_cliente=:nombreUsuario, apellido_cliente=:apellidoUsuario ,celular=:celular ,mail=:mail WHERE id_cliente=:id_cliente ";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
  $resultado = $db->prepare($update);
  if ($resultado->execute(array(":id_cliente" => $id_cliente,":nombreUsuario" => $nombreUsuario,
      ":apellidoUsuario" => $apellidoUsuario,":celular" => $celular, ":mail" => $mail))){
@@ -584,7 +655,11 @@ $update="UPDATE sistema_restaurant2.0.tbl_cliente SET nombre_cliente=:nombreUsua
 function mostrarPedidos($id_cliente){
 
 $db = conecta();
+<<<<<<< HEAD
 $consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restaurant,r.direccion, s.estado_solicitud from sistema_restaurant2.0.tbl_solicitud s, sistema_restaurant2.0.tbl_restaurant r
+=======
+$consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restaurant,r.direccion, s.estado_solicitud from sistema_restaurant.tbl_solicitud s, sistema_restaurant.tbl_restaurant r
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
   where s.id_cliente=:id_cliente and s.id_restaurant=r.id_restaurant";
  $resultado= $db->prepare($consulta);
   if($resultado->execute(array(":id_cliente"=>$id_cliente)) && $resultado->rowCount()>0){
@@ -596,7 +671,11 @@ $consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restau
       $nombre_restaurant=$row['nombre_restaurant'];
       $direccion=$row['direccion'];
       $estado_solicitud=$row['estado_solicitud'];
+<<<<<<< HEAD
       $consulta2="SELECT MAX(p.tiempo_preparacion)as tiempo_maximo from sistema_restaurant2.0.tbl_detalle_solicitud ds, sistema_restaurant2.0.tbl_solicitud s, sistema_restaurant2.0.tbl_plato p where s.id_restaurant=$id_restaurant and ds.id_solicitud=s.id_solicitud and p.id_plato=ds.id_plato and s.estado_solicitud='pagado' and s.id_solicitud=$id_solicitud";
+=======
+      $consulta2="SELECT MAX(p.tiempo_preparacion)as tiempo_maximo from sistema_restaurant.tbl_detalle_solicitud ds, sistema_restaurant.tbl_solicitud s, sistema_restaurant.tbl_plato p where s.id_restaurant=$id_restaurant and ds.id_solicitud=s.id_solicitud and p.id_plato=ds.id_plato and s.estado_solicitud='pagado' and s.id_solicitud=$id_solicitud";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
       $resultado2= $db->prepare($consulta2);
       $resultado2->execute();
       $rows2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
@@ -649,7 +728,11 @@ $consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restau
 function mostrarTablaPedidos(){
 $db = conecta();
 $id_solicitud=intval($_POST['id_solicitud']);
+<<<<<<< HEAD
 $consulta = "SELECT DISTINCT ds.cantidad,r.id_restaurant,r.nombre_restaurant, p.nombre_plato,p.precio,s.total_cuenta, c.id_cliente from sistema_restaurant2.0.tbl_solicitud s, sistema_restaurant2.0.tbl_restaurant r, sistema_restaurant2.0.tbl_plato p, sistema_restaurant2.0.tbl_detalle_solicitud ds, sistema_restaurant2.0.tbl_cliente c
+=======
+$consulta = "SELECT DISTINCT ds.cantidad,r.id_restaurant,r.nombre_restaurant, p.nombre_plato,p.precio,s.total_cuenta, c.id_cliente from sistema_restaurant.tbl_solicitud s, sistema_restaurant.tbl_restaurant r, sistema_restaurant.tbl_plato p, sistema_restaurant.tbl_detalle_solicitud ds, sistema_restaurant.tbl_cliente c
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
   where s.id_solicitud=:id_solicitud and s.id_solicitud=ds.id_solicitud and ds.id_plato=p.id_plato and r.id_restaurant=s.id_restaurant and s.id_cliente=c.id_cliente";
 $resultado= $db->prepare($consulta);
 $resultado-> bindParam(":id_solicitud", $id_solicitud, PDO::PARAM_INT);
@@ -678,7 +761,11 @@ $resultado-> bindParam(":id_solicitud", $id_solicitud, PDO::PARAM_INT);
               </tr> ';
                                
     } 
+<<<<<<< HEAD
    // $consultaValoracion="SELECT * from sistema_restaurant2.0.tbl_calificación_restorant ";
+=======
+   // $consultaValoracion="SELECT * from sistema_restaurant.tbl_calificación_restorant ";
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
           echo' <tr class="bg-primary">
                   <th align="center" >TOTAL</th>
                   <td align="center"><a class="comentar" href="evaluarRestaurant.php?id_restaurant='.$id_restaurant.'&nombre_restaurant='.$nombre_restaurant.'" data-toggle="modal">Evaluar Restaurant</a></td>
@@ -694,7 +781,11 @@ $resultado-> bindParam(":id_solicitud", $id_solicitud, PDO::PARAM_INT);
 
 $db = conecta();
 
+<<<<<<< HEAD
 $insert="INSERT into sistema_restaurant2.0.tbl_calificacion_restorant(comentario,estrellas,id_cliente,id_restaurant)
+=======
+$insert="INSERT into sistema_restaurant.tbl_calificacion_restorant(comentario,estrellas,id_cliente,id_restaurant)
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
     values(:comentario,:estrellas,:id_cliente,:id_restaurant)";
 $resultado= $db->prepare($insert);
  if ($resultado->execute(array(":comentario" => $comentario,
@@ -717,7 +808,11 @@ function mostrarComentarios($id_restaurant){
 
   $db = conecta();
 
+<<<<<<< HEAD
   $consulta="SELECT cr.comentario,cr.estrellas,cr.fecha_calificacion,c.nombre_cliente,c.apellido_cliente from sistema_restaurant2.0.tbl_calificacion_restorant cr,sistema_restaurant2.0.tbl_cliente c
+=======
+  $consulta="SELECT cr.comentario,cr.estrellas,cr.fecha_calificacion,c.nombre_cliente,c.apellido_cliente from sistema_restaurant.tbl_calificacion_restorant cr,sistema_restaurant.tbl_cliente c
+>>>>>>> aa1d5cda721c5de8a15554a5c395cdfb22a21305
    where cr.id_restaurant=:id_restaurant and cr.id_cliente=c.id_cliente";
   $resultado= $db->prepare($consulta);
   if($resultado->execute(array(":id_restaurant"=>$id_restaurant)) && $resultado->rowCount()>0){
