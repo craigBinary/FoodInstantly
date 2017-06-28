@@ -94,82 +94,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 	</div>
 	<!-- //products --> 
-	
-	<!-- dishes -->
-	<div class="w3agile-spldishes">
-		<div class="container">
-			<h3 class="w3ls-title">Special Foods</h3>
-			<div class="spldishes-agileinfo">
-				<div class="col-md-3 spldishes-w3left">
-					<h5 class="w3ltitle">Staple Specials</h5>
-					<p>Vero vulputate enim non justo posuere placerat Phasellus mauris vulputate enim non justo enim .</p>
-				</div> 
-				<div class="col-md-9 spldishes-grids">
-					<!-- Owl-Carousel -->
-					<div id="owl-demo" class="owl-carousel text-center agileinfo-gallery-row">
-						<a href="products.html" class="item g1">
-							<img class="lazyOwl" src="images/g1.jpg" title="Our latest gallery" alt=""/>
-							<div class="agile-dish-caption">
-								<h4>Duis congue</h4>
-								<span>Neque porro quisquam est qui dolorem </span>
-							</div>
-						</a>
-						<a href="products.html" class="item g1">
-							<img class="lazyOwl" src="images/g2.jpg" title="Our latest gallery" alt=""/>
-							<div class="agile-dish-caption">
-								<h4>Duis congue</h4>
-								<span>Neque porro quisquam est qui dolorem </span>
-							</div>
-						</a>
-						<a href="products.html" class="item g1">
-							<img class="lazyOwl" src="images/g3.jpg" title="Our latest gallery" alt=""/>
-							<div class="agile-dish-caption">
-								<h4>Duis congue</h4>
-								<span>Neque porro quisquam est qui dolorem </span>
-							</div>
-						</a>
-						<a href="products.html" class="item g1">
-							<img class="lazyOwl" src="images/g4.jpg" title="Our latest gallery" alt=""/>
-							<div class="agile-dish-caption">
-								<h4>Duis congue</h4>
-								<span>Neque porro quisquam est qui dolorem </span>
-							</div>
-						</a>
-						<a href="products.html" class="item g1">
-							<img class="lazyOwl" src="images/g5.jpg" alt=""/>
-							<div class="agile-dish-caption">
-								<h4>Duis congue</h4>
-								<span>Neque porro quisquam est qui dolorem </span>
-							</div>
-						</a> 
-						<a href="products.html" class="item g1">
-							<img class="lazyOwl" src="images/g1.jpg" title="Our latest gallery" alt=""/>
-							<div class="agile-dish-caption">
-								<h4>Duis congue</h4>
-								<span>Neque porro quisquam est qui dolorem </span>
-							</div>
-						</a>
-						<a href="products.html" class="item g1">
-							<img class="lazyOwl" src="images/g2.jpg" title="Our latest gallery" alt=""/>
-							<div class="agile-dish-caption">
-								<h4>Duis congue</h4>
-								<span>Neque porro quisquam est qui dolorem </span>
-							</div>
-						</a>
-						<a href="products.html" class="item g1">
-							<img class="lazyOwl" src="images/g3.jpg" title="Our latest gallery" alt=""/>
-							<div class="agile-dish-caption">
-								<h4>Duis congue</h4>
-								<span>Neque porro quisquam est qui dolorem </span>
-							</div>
-						</a>
-					</div> 
-				</div>  
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-	<!-- //dishes --> 
 	<!-- modal -->
 	<div class="modal video-modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1">
 		<div class="modal-dialog" role="document">
@@ -188,53 +112,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- //modal -->
 	
 	<!-- footer -->
-	<div class="footer agileits-w3layouts">
-		<div class="container">
-			<div class="w3_footer_grids">
-				<div class="col-xs-6 col-sm-3 footer-grids w3-agileits">
-					<h3>company</h3>
-					<ul>
-						<li><a href="about.html">About Us</a></li>
-						<li><a href="contact.html">Contact Us</a></li>  
-						<li><a href="careers.html">Careers</a></li>  
-						<li><a href="help.html">Partner With Us</a></li>   
-					</ul>
-				</div> 
-				<div class="col-xs-6 col-sm-3 footer-grids w3-agileits">
-					<h3>help</h3>
-					<ul>
-						<li><a href="faq.html">FAQ</a></li> 
-						<li><a href="login.html">Returns</a></li>   
-						<li><a href="login.html">Order Status</a></li> 
-						<li><a href="offers.html">Offers</a></li> 
-					</ul>  
-				</div>
-				<div class="col-xs-6 col-sm-3 footer-grids w3-agileits">
-					<h3>policy info</h3>
-					<ul>  
-						<li><a href="terms.html">Terms & Conditions</a></li>  
-						<li><a href="privacy.html">Privacy Policy</a></li>
-						<li><a href="login.html">Return Policy</a></li> 
-					</ul>     
-				</div>
-				<div class="col-xs-6 col-sm-3 footer-grids w3-agileits">
-					<h3>Menu</h3> 
-					<ul>
-						<li><a href="menu.html">All Day Menu</a></li> 
-						<li><a href="menu.html">Lunch</a></li>
-						<li><a href="menu.html">Dinner</a></li>
-						<li><a href="menu.html">Flavours</a></li> 
-					</ul>  
-				</div> 
-				<div class="clearfix"> </div>
-			</div>
-		</div> 
-	</div>
-	<div class="copyw3-agile"> 
-		<div class="container">
-			<p>&copy; 2017 Staple Food. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-		</div>
-	</div>
+	
+	<?php include('inc/footer.php'); ?>
 	<!-- //footer -->   
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>
