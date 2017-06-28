@@ -45,11 +45,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="agileits_search">
 					<form action="productos.php" method="get">
 					
-					<select id="select" name="agileinfo_search" required="">
+					<select id="select" required="">
 						<!-- <option value="">Seleccione</option> -->
 					</select> 
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<select id="agileinfo_search" name="agileinfo_search" required="">
+						<select id="agileinfo_search" required="">
 						<option value="0" default selected> Seleccione Restaurant</option>
 						</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="hidden" id="id_restaurant" name="id_restaurant" />
