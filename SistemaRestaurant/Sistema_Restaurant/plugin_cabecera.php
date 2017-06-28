@@ -36,10 +36,10 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  
  
-<!--<link rel="stylesheet" href="seg_gabinete/upload/css/jquery.fileupload.css">
-<link rel="stylesheet" href="/seg_gabinete/upload/css/jquery.fileupload-ui.css">
-<noscript><link rel="stylesheet" href="/seg_gabinete/upload/css/jquery.fileupload-noscript.css"></noscript>
-<noscript><link rel="stylesheet" href="/seg_gabinete/upload/css/jquery.fileupload-ui-noscript.css"></noscript>-->
+<link rel="stylesheet" href="../Sistema_Restaurant/upload/css/jquery.fileupload.css">
+<link rel="stylesheet" href="../Sistema_Restaurant/upload/css/jquery.fileupload-ui.css">
+<noscript><link rel="stylesheet" href="../Sistema_Restaurant/upload/css/jquery.fileupload-noscript.css"></noscript>
+<noscript><link rel="stylesheet" href="../Sistema_Restaurant/upload/css/jquery.fileupload-ui-noscript.css"></noscript>
  
  
  

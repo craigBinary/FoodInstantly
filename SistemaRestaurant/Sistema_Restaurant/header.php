@@ -10,13 +10,15 @@
 
  include("plugin_cabecera.php");
 
- $trae_restaurant=mysql_query("select * from tbl_restaurant r where r.id_restaurant='$id_restaurant'",$conexion);
+ $trae_restaurant=mysql_query("select * from tbl_restaurant r where r.id_restaurant='$id_restaurant' and r.id_restaurant<>'0'  ",$conexion);
  if($row=mysql_fetch_object($trae_restaurant)){
 $nombre_restaurant=$row->nombre_restaurant;
+$numero=$row->numero;
+$nombre_calle=$row->nombre_calle;
 
 	 }
- 
- 
+
+  
  ?>
 
   
@@ -49,13 +51,22 @@ $nombre_restaurant=$row->nombre_restaurant;
           
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+            <? if($id_privilegio==3){?>
+              <img src="../img/restaurant.png" class="user-image" alt="User Image">
+              <? }else{?>
+               <img src="../img/user.png" class="user-image" alt="User Image">
+               <? }?>
+              
               <span class="hidden-xs"><? echo $nombre_usuario;?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <? if($id_privilegio==3){?>
+              <img src="../img/restaurant.png" class="user-image" alt="User Image">
+              <? }else{?>
+               <img src="../img/user.png" class="user-image" alt="User Image">
+               <? }?>
 
                 <p>
                   <? echo $nombre_usuario; ?> - Admin Rstaurant
@@ -64,6 +75,9 @@ $nombre_restaurant=$row->nombre_restaurant;
               </li>
             
               <li class="user-footer">
+               <div class="pull-left">
+                  <a href="CambiarContrasena.php" class="btn btn-default btn-flat">Cambiar Contraseña</a>
+                </div>
                 <div class="pull-right">
                   <a href="logout2.php" class="btn btn-default btn-flat">Salir</a>
                 </div>
@@ -83,7 +97,11 @@ $nombre_restaurant=$row->nombre_restaurant;
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+         <? if($id_privilegio==3){?>
+              <img src="../img/restaurant.png" class="user-image" alt="User Image">
+              <? }else{?>
+               <img src="../img/user.png" class="user-image" alt="User Image">
+               <? }?>
         </div>
         <div class="pull-left info">
           <p><? echo $nombre_usuario;?></p>
@@ -107,12 +125,11 @@ $nombre_restaurant=$row->nombre_restaurant;
    <div class="content-wrapper" >
  <section class="content-header">
       <h1>
-       <i><? echo $nombre_restaurant;?></i>
-        <small>Sistema de administraci&oacute;n</small>
+    
+      <i><? echo $nombre_restaurant;?></i>
+        <small>sistema de administraci&oacute;n</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
+      
+
     </section>
     <!-- Main content --><section class="content" id="contenedor">

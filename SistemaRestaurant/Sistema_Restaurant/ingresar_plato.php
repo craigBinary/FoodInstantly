@@ -1,10 +1,15 @@
 <? 
 
 include("db.php");
+$token = substr(md5(uniqid(rand())),0,15);
+
 ?>
 
+
+<input name="token_oculto" id="token_oculto" type="hidden" value="<?=$token;?>" />
+
 <div class="modal-header" style="background-color:#FFF">
-  <h3 class="modal-title" id="largeModalLabel">Ingresar Plato</h3>
+  <h3 class="modal-title" id="largeModalLabel" align="center">Ingresar Plato</h3>
 </div>
 <div class="modal-body" style="background-color:#FFF" >
 
@@ -19,13 +24,13 @@ include("db.php");
         <div class="col-md-4">
           <div class="form-group">
             <label for="exampleInputPassword1">Nombre del Plato</label>
-            <input type="text" id="nombre_plato" name="nombre_plato" class="form-control" onblur="ValidaFormularioVacio(this.value,'val_valida');" >
+            <input type="text" id="nombre_plato" name="nombre_plato" class="form-control" onblur="ValidaFormularioVacio(this.value,'val_valida');"  placeholder="Ingresar un nombre">
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <label for="exampleInputPassword1">Precio ($)</label>
-            <input type="text" id="precio" name="precio" class="form-control" onblur="ValidaFormularioVacio(this.value,'val_valida');" onkeypress="return acceptNum(event)" >
+            <input type="text" id="precio" name="precio" class="form-control" onblur="ValidaFormularioVacio(this.value,'val_valida');" onkeypress="return acceptNum(event)" placeholder="Ingresar un precio">
           </div>
         </div>
         <div class="col-md-4">
@@ -52,7 +57,7 @@ include("db.php");
       <div class="col-md-4">
       <div class="form-group">
       <label for="exampleInputPassword1">Tiempo de preparaci&oacute;n(en minutos)</label>
-            <input type="text" id="tiempo" name="tiempo" class="form-control" onblur="ValidaFormularioVacio(this.value,'val_valida');" onkeypress="return acceptNum(event)"  >
+            <input type="text" id="tiempo" name="tiempo" class="form-control" onblur="ValidaFormularioVacio(this.value,'val_valida');" onkeypress="return acceptNum(event)" placeholder="Ingresar un tiempo de Preparaci&oacute;n" >
 
       </div>
       </div>
@@ -72,13 +77,13 @@ include("db.php");
         <textarea name="info" rows="4" class="form-control" id="info" placeholder="" onblur="ValidaFormularioVacio(this.value,'val_valida');"></textarea>
       </div>
       <div class="form-group">
-     <? include("archivo_restaurant.php");?>
+     <?   include("upload_simple/index_simple.php");?>
       
       </div>
     </div>
   </div>
 </div></div>
-<div class="modal-footer" style="background-color:#FFF">
+<div class="modal-footer" style="background-color:#FFF" >
   <button type="button" class="btn btn-default" id="btn_guardar" name="btn_guardar" onclick="GuardarPlato('');">GUARDAR</button>
   <button type="button" class="btn btn-default"  data-dismiss="modal">CERRAR VENTANA</button>
 </div>

@@ -161,7 +161,26 @@ function paginate($item_per_page, $current_page, $total_records, $total_pages, $
         return $utf8_2;
     }
      
+function ruta_subir_ing_doc($token)
+{
+	
+	$anyo=date("Y");
+	$mes=date("m");
+	
+	$directorio = "../files/$anyo/";
+	$directorio2= "../files/$anyo/$mes/".$token."/";
 
+
+	mkdir($directorio, 0777, true);
+	chmod($directorio,0777);
+	
+	mkdir($directorio2, 0777, true);
+	chmod($directorio2,0777);
+		
+	return $directorio2;
+	
+	
+}
 
 function ruta_subir($token)
 {
@@ -404,6 +423,7 @@ if($aa[0]<>"0000-00-00")
 }
 	
 }
+
 
 function separaprecio($precio)
 {

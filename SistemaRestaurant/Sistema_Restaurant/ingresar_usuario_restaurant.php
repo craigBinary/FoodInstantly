@@ -17,9 +17,9 @@ include("header.php");
           <h3 class="box-title">Ingresar Usuario</h3>
         </div>
         <div id="Usuario">
-        <? include("form_usuario.php");?>
+        <? include("form_usuario_resto.php");?>
         </div></div></div>
-
+</div>
 <?php include("footer.php");?>
 
 <!-- ./wrapper --> 

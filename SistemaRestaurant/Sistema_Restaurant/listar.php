@@ -42,7 +42,7 @@ include("header.php");
         <div class="form-group">
           <div class="input-group">
             <div class="input-group-addon"> <i class="fa fa-search"></i> </div>
-            <input type="text" class="form-control pull-right" id="buscar_orga" onblur="false" onkeydown="if(event.keyCode == 13){  PaginaOrganizaciones(1); }">
+            <input type="text" class="form-control pull-right" id="buscar_orga" onblur="false" placeholder="Buscar por Nombre del Plato o Tipo" onkeydown="if(event.keyCode == 13){  PaginaOrganizaciones(1); }">
           </div>
           <!-- /.input group --> 
         </div>
@@ -64,5 +64,15 @@ include("header.php");
 <div class="modal fade" id="largeModal"  role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content" id="ventana_modal"> </div>
+  </div>
+</div>
+<div class="modal fade" id="smallModal"  role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="ventana_modal_chica"> </div>
+  </div>
+</div>
+<div class="modal fade" id="Modal"  role="dialog">
+  <div class="modal-dialog ">
+    <div class="modal-content" id="ventana_modal_default"> </div>
   </div>
 </div>

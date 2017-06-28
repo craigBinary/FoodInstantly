@@ -10,7 +10,7 @@ $usuario=mysql_real_escape_string($_REQUEST["usuario"]);
 
 if($restaurant==""){
 	
- $trae_usuario2=mysql_query("select * from tbl_usuario_restaurant where nombre_usuario='$usuario' and password_usuario='$clave' and id_privilegio='3'",$conexion);
+ $trae_usuario2=mysql_query("select * from tbl_usuario_restaurant where nombre_usuario='$usuario' and password_usuario='$clave' and id_privilegio='3' ",$conexion);
 
 		if($row=mysql_fetch_array($trae_usuario2))
 		{
@@ -44,7 +44,7 @@ else
 	
 	}else{
 
-$trae_usuario=mysql_query("select * from tbl_usuario_restaurant where nombre_usuario='$usuario' and password_usuario='$clave'",$conexion);
+$trae_usuario=mysql_query("select * from tbl_usuario_restaurant u, tbl_restaurant r where u.nombre_usuario='$usuario' and u.password_usuario='$clave' and u.id_restaurant='$restaurant' and u.id_restaurant=r.id_restaurant and r.estado_restaurant='activo'",$conexion);
 
 		if($row=mysql_fetch_array($trae_usuario))
 		{
@@ -53,7 +53,7 @@ $trae_usuario=mysql_query("select * from tbl_usuario_restaurant where nombre_usu
 			$_SESSION["nombre_usuario"]=$row["nombre_usuario"];
 			$_SESSION["id_restaurant"]=$row["id_restaurant"];
 			$_SESSION["id_privilegio"]=$row["id_privilegio"];
-			$_SESSION["url"]=$row["url"];
+			//$_SESSION["id_sucursal_session"]=$row["id_sucursal"];
 			
 			
 			//$_SESSION["rut_session"]=$rut;
@@ -61,7 +61,7 @@ $trae_usuario=mysql_query("select * from tbl_usuario_restaurant where nombre_usu
 							echo "<script>location.href='listar.php'</script>";
 						
 					}else if($_SESSION["id_privilegio"]=="2"){
-							echo "<script>location.href='listar_pedidos.php'</script>";
+							echo "<script>location.href='lista_pedidos.php'</script>";
 	
 	}else{
 		echo "<script>location.href='index.php'</script>";

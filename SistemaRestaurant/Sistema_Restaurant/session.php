@@ -1,6 +1,7 @@
 
 <?php
 session_start();
+ $url=$_SERVER['REQUEST_URI'];
 
 
 if(isset($_SESSION['nombre_usuario']))
@@ -10,8 +11,8 @@ if(isset($_SESSION['nombre_usuario']))
 	  $nombre_usuario=$_SESSION["nombre_usuario"]; 
 	$id_privilegio=$_SESSION["id_privilegio"];
 	//$sistema_ses=$_SESSION["sistema_ses"];
-	 $id_restaurant=$_SESSION["id_restaurant"];
-	//$menu_sis=$_SESSION["menu_sis"];	
+	  $id_restaurant=$_SESSION["id_restaurant"];
+	// $id_sucursal_session=$_SESSION["id_sucursal_session"];
 	
 
 }else{

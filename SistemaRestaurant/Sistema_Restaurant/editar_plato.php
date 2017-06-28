@@ -2,16 +2,24 @@
 include("db.php");
  $id_plato=$_REQUEST["id_plato"];
  
+ $consulta=mysql_query("select * from tbl_imagen_plato where id_plato='$id_plato'",$conexion);
+ if($reg=mysql_fetch_object($consulta)){
+	 $archivo=$reg->imagen_plato;
+	 
+	 
+	 }
+ 
  $trae=mysql_query("select * from tbl_plato where id_plato='$id_plato'",$conexion);
  if($row=mysql_fetch_object($trae)){
 	 $tiempo_ant=$row->tiempo_preparacion;
+	 $nombre_plato=$row->nombre_plato;
 	 }
 	 $tiempo_ant_separa=explode(" ",$tiempo_ant);
 	 $tiempo_final=$tiempo_ant_separa[0];
  ?>
 
 <div class="modal-header" style="background-color:#FFF">
-  <h3 class="modal-title" id="largeModalLabel">Editar Plato</h3>
+  <h3 class="modal-title" id="largeModalLabel" align="center">Editar Plato: <small> <? echo $nombre_plato;?></small></h3>
 </div>
 <div class="modal-body" style="background-color:#FFF" >
 
@@ -76,12 +84,16 @@ include("db.php");
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Descripci&oacute;n: </label>
-        <textarea name="info" rows="4" class="form-control" id="info" placeholder="" onblur="ValidaFormularioVacio(this.value,'val_valida');"><? echo $row->descripcion;?></textarea>
+        <textarea name="info" rows="4" class="form-control" id="info" placeholder="" onblur="ValidaFormularioVacio(this.value,'val_valida');"><? echo $row->descripcion_plato;?></textarea>
+      </div>
+      <div class="form-group">
+     <?   include("upload_simple/index_simple.php");?>
+      
       </div>
     </div>
   </div>
 </div></div>
-<div class="modal-footer" style="background-color:#FFF">
+<div class="modal-footer" style="background-color:#FFF" >
   <button type="button" class="btn btn-default" id="btn_guardar" name="btn_guardar" onclick="ActualizarPlato('<? echo $id_plato;?>');">GUARDAR</button>
   <button type="button" class="btn btn-default"  data-dismiss="modal">CERRAR VENTANA</button>
 </div>

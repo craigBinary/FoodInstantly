@@ -18,7 +18,7 @@ $registros_orga=10;
 if($buscar_orga<>"")
 {
 	
-$sqlbuscar_orga=" and nombre_plato like '%$buscar_orga%'  ";	
+$sqlbuscar=" and p.nombre_plato like '%$buscar_orga%' or tp.nombre_tipo like '%$buscar_orga%' ";	
 	
 }
 	
@@ -45,10 +45,10 @@ $ini=($page_curr-1)*$registros_orga;
             <tbody>
                 <? 
 				$numero=1;
-				$consulta=mysql_query("select * from tbl_plato p,tbl_tipo_plato tp,tbl_restaurant r where  p.id_tipo_plato=tp.id_tipo_plato and r.id_restaurant='$id_restaurant' and p.id_restaurant=r.id_restaurant and p.estado_plato<>'3' $sqlbuscar_orga order by nombre_plato asc limit $ini,$registros_orga 
+				$consulta=mysql_query("select * from tbl_plato p,tbl_tipo_plato tp,tbl_restaurant r where  p.id_tipo_plato=tp.id_tipo_plato and r.id_restaurant='$id_restaurant' and p.id_restaurant=r.id_restaurant and p.estado_plato<>'3' $sqlbuscar order by nombre_plato asc limit $ini,$registros_orga 
 				",$conexion);
 				
-$sqltotal=mysql_query("select * from tbl_plato p,tbl_tipo_plato tp,tbl_restaurant r where  p.id_tipo_plato=tp.id_tipo_plato and r.id_restaurant='$id_restaurant' and p.id_restaurant=r.id_restaurant and p.estado_plato<>'3' $sqlbuscar_orga order by nombre_plato asc",$conexion);
+ $sqltotal=mysql_query("select * from tbl_plato p,tbl_tipo_plato tp,tbl_restaurant r where  p.id_tipo_plato=tp.id_tipo_plato and r.id_restaurant='$id_restaurant' and p.id_restaurant=r.id_restaurant and p.estado_plato<>'3' $sqlbuscar order by nombre_plato asc",$conexion);
 	$total_registros=mysql_num_rows($sqltotal);
 	
 			   while($row=mysql_fetch_object($consulta)){
@@ -66,11 +66,11 @@ $sqltotal=mysql_query("select * from tbl_plato p,tbl_tipo_plato tp,tbl_restauran
                   <td><? echo $row->nombre_tipo;?></td>
                  <? if($estado=="DESHABILITADO"){?> <td><span class="badge bg-red"><? echo $estado;?></span></td><? }else{?>
                  <td><span class="badge bg-green"><? echo $estado;?></span></td><? }?>
-                  <td><? echo $row->tiempo_preparacion;?></td>
+                  <td><? echo $row->tiempo_preparacion." minutos";?></td>
                   <td align="center"><p data-placement="top" data-toggle="tooltip" >
                   <button class="btn btn-primary btn-xs"  onClick="EditarPlato('<? echo $row->id_plato;?>')" data-toggle="modal" ><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Editar"></span> </button></p></td>
                   <td align="center"><p data-placement="top" data-toggle="tooltip" >
-                  <button class="btn btn-danger btn-xs"  onClick="EliminaPlato('<? echo $row->id_plato?>')" data-toggle="modal" ><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Eliminar"></span> </button></p></td>
+                  <button class="btn btn-danger btn-xs"  onClick="EliminaPlato('<? echo $row->id_plato;?>')" data-toggle="modal" ><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Eliminar"></span> </button></p></td>
                  
                 </tr>
                 <? }?>

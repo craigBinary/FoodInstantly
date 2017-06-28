@@ -17,37 +17,9 @@ include("db.php");
       <div class="col-lg-9 col-md-11 col-sm-9"> 
         <!-- The fileinput-button span is used to style the file input field as button --> 
         <span class="btn btn-success fileinput-button"> <i class="glyphicon glyphicon-plus"></i> <span>Agregar archivos...</span>
-        <input type="file" name="files[]" multiple>
+        <input type="file" name="files" >
         </span>
-        <button type="submit" class="btn btn-primary start"> <i class="glyphicon glyphicon-upload"></i> <span>Iniciar la subida</span> </button>
-        <button type="reset" class="btn btn-warning cancel"> <i class="glyphicon glyphicon-ban-circle"></i> <span>Cancelar la subida</span> </button>
-        
-        <!-- The global file processing state --> 
-        <span class="fileupload-process"></span> </div>
-      
-      <!-- The global progress state -->
-      <div class="col-lg-9 col-md-11 col-sm-9 fileupload-progress fade"> 
-        <!-- The global progress bar -->
-        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-        </div>
-        <!-- The extended global progress state -->
-        <div class="progress-extended">&nbsp;</div>
-      </div>
-    </div>
-    
-    <!-- The table listing the files available for upload/download -->
-    
 
-    
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="table-responsive" >
-        <table role="presentation" class="table table-striped">
-          <tbody class="files">
-          </tbody>
-        </table>
-      </div>
-    </div>
         
   </form>
   <br>

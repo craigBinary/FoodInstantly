@@ -80,7 +80,7 @@ function enviarfor()
       <select name="restaurant" id="restaurant"   class="form-control select2" style="width:100%" >
               <option value="" selected="selected"> Seleccione Restaurant </option>
        <?php 			  
-				$buscar22="SELECT * from tbl_restaurant ";
+				$buscar22="SELECT * from tbl_restaurant where id_restaurant<>'0' and estado_restaurant='activo' ";
 				$result55=mysql_query($buscar22,$conn);
 			while($reg=mysql_fetch_object($result55)){
 				?>
