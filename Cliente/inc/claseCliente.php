@@ -122,7 +122,7 @@ function listarRestaurant(){
       $devolver = "";
       $id = $_POST['id'];
       $db = conecta();
-      $consulta="SELECT id_restaurant,nombre_restaurant,id_comuna from bd_restorant.tbl_restaurant where estado='habilitado' and id_comuna = :id ";
+      $consulta="SELECT id_restaurant,nombre_restaurant,id_comuna,direccion from bd_restorant.tbl_restaurant where estado_restaurant='activo' and id_comuna = :id ";
       $resultado=$db->prepare($consulta);
       //$resultado=$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $resultado-> bindParam(":id", $id, PDO::PARAM_INT);
@@ -130,7 +130,7 @@ function listarRestaurant(){
       $devolver .= '<option value="0" default selected> Seleccione Restaurant</option>';
       foreach ($resultado as $fila) {
 
-         $devolver .= '<option value= ' . $fila['id_restaurant'] . ' > ' . $fila['nombre_restaurant'] . '</option>';
+         $devolver .= '<option value= ' . $fila['id_restaurant'] . ' > ' . $fila['nombre_restaurant'] . ', ' . $fila['direccion'] . '</option>';
       }
 
       $db = null;
@@ -433,7 +433,7 @@ $db = conecta();
         echo   ' </div> ';
       echo   '<p class="single-price-text">'.'Descripción:'.' '.$row['descripcion_plato']. '</p>';
       echo    '<form action="perfilRestaurant.php" method="post">
-                <input type="hidden" name="restaurant" id="restaurant" value="'.$row['nombre_comuna'].'" />
+                
                 <input type="hidden" name="id_restaurant" id="id_restaurant" value="'.$row['id_restaurant'].'" />
                 
                 <button type="submit" class="w3ls-cart" ><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> Ver Restaurant</button>
@@ -494,23 +494,25 @@ $db = conecta();
          echo   '<ul>';
        echo '  <li class="rating">'.'Mail:'.' '.$row['email'].'</li>';
          echo  '</ul>
-              </div> ';
+            </div> ';
         echo  '<div class="single-price"> ';
         echo   '<p class="single-price-text">'.'Descripción:'.' '.$row['info_restaurant']. '</p>';
         echo   ' </div>
-                </div> 
+            </div> 
             
           </div>
           </div>
           </div> 
-          <div id="contact" class="contact cd-section">
+
+      <div id="contact" class="contact cd-section">
       <div class="container">
-      <p>Ubicación: </p>
+      <a><i class="glyphicon glyphicon-map-marker"></i> Ubicación: </a>
       <div class="map"> ';
-  echo  ' <iframe src="'.$row['mapa'].'" width="600" align="center" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+  echo  ' <iframe src="'.$row['mapa'].'" width="300" align="center" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
   </div>  
-  </div>  ';
+  </div> 
+  <h3 class="w3ls-title">Evaluación de nuestros clientes</h3> ';
 
     }
     
@@ -579,9 +581,181 @@ $update="UPDATE bd_restorant.tbl_cliente SET nombre_cliente=:nombreUsuario, apel
     $db = null;
 }
 
+function mostrarPedidos($id_cliente){
+
+$db = conecta();
+$consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restaurant,r.direccion, s.estado_solicitud from bd_restorant.tbl_solicitud s, bd_restorant.tbl_restaurant r
+  where s.id_cliente=:id_cliente and s.id_restaurant=r.id_restaurant";
+ $resultado= $db->prepare($consulta);
+  if($resultado->execute(array(":id_cliente"=>$id_cliente)) && $resultado->rowCount()>0){
+    $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($rows as $row) {
+      $fechaSolicitud=$row['fecha_hora'];
+      $id_solicitud=$row['id_solicitud'];
+      $id_restaurant=$row['id_restaurant'];
+      $nombre_restaurant=$row['nombre_restaurant'];
+      $direccion=$row['direccion'];
+      $estado_solicitud=$row['estado_solicitud'];
+      $consulta2="SELECT MAX(p.tiempo_preparacion)as tiempo_maximo from bd_restorant.tbl_detalle_solicitud ds, bd_restorant.tbl_solicitud s, bd_restorant.tbl_plato p where s.id_restaurant=$id_restaurant and ds.id_solicitud=s.id_solicitud and p.id_plato=ds.id_plato and s.estado_solicitud='pagado' and s.id_solicitud=$id_solicitud";
+      $resultado2= $db->prepare($consulta2);
+      $resultado2->execute();
+      $rows2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
+      foreach ($rows2 as $row2) {
+      // H:i:s
+        $tiempo_maximo=$row2['tiempo_maximo'];   
+            $hora=$row['fecha_hora'];
+          $bb = explode("+", $hora);//separa la hora de las fechas
+                   $aa = explode(" ", $bb[0]);
+                    $hora2=$aa[1] ;//hora
+                      $cc = explode(":", $hora2);//separa el signo :
+                 $horaF=$cc[0] ;//hora
+                   $minuto=$cc[1] ;//minutos
+                   $minutoF=$minuto+$tiempo_maximo;//minutos de la hora de ingreso + minutos totales de los platos
+          
+            if($minutoF>60){
+              $minutoF=$minutoF-60;
+               $horaFinal= $horaF+1 .':'.$minutoF;
+              if($minutoF<10){
+                $minutoF="0".$minutoF;
+                 $horaFinal= $horaF+1 .':'.$minutoF;
+                }             
+              }else{
+                 $horaFinal=$horaF.':'.$minutoF;
+                }
+                $horaFinalC="";
+                 if($horaF>=12){ $horaFinalC=$horaFinal." PM";}else{$horaFinalC=$horaFinal." AM";} 
+      echo '
+       <a href="#" class="accordion-titulo" id="'.$id_solicitud.'" >Fecha: '.date('d-m-Y H:i' ,strtotime($fechaSolicitud)).'~ '.$nombre_restaurant.','.$direccion.'~ Hora de entrega '.$horaFinalC.'~ Estado:'.$estado_solicitud.' <span class="toggle-icon"></span></a>
+        <div class="accordion-content">
+         
+        </div> ';
+       
+      }
+    }
+     return true;
+     $db=null;
+   }else{
+    echo "<script languaje='javascript'>alert('Error');</script>";
+     echo '<div class="col-xs-6 col-sm-4 product-grids"> ';
+     echo   '<div class="container">';
+     echo "<h5>No hay pedidos </h5>"; 
+    echo '</div>
+     </div>';
+
+   }   
+   $db=null;
+}
+
+function mostrarTablaPedidos(){
+$db = conecta();
+$id_solicitud=intval($_POST['id_solicitud']);
+$consulta = "SELECT DISTINCT ds.cantidad,r.id_restaurant,r.nombre_restaurant, p.nombre_plato,p.precio,s.total_cuenta, c.id_cliente from bd_restorant.tbl_solicitud s, bd_restorant.tbl_restaurant r, bd_restorant.tbl_plato p, bd_restorant.tbl_detalle_solicitud ds, bd_restorant.tbl_cliente c
+  where s.id_solicitud=:id_solicitud and s.id_solicitud=ds.id_solicitud and ds.id_plato=p.id_plato and r.id_restaurant=s.id_restaurant and s.id_cliente=c.id_cliente";
+$resultado= $db->prepare($consulta);
+$resultado-> bindParam(":id_solicitud", $id_solicitud, PDO::PARAM_INT);
+  $resultado->execute();
+    $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+   
+    echo'
+         <p>* Si tu pedido tiene diferentes platos podría tener un retraso de 5 a 10 minutos</p></br>
+         <h3 align="center">Detalle del pedido</h3>
+          <div class="table-responsive">
+             <table class="table table-bordered table-inverse">
+                <tr class="bg-primary">
+              <td align="center">Cantidad</td>
+              <td align="center">Plato</td>
+              <td align="center">Precio(c/u)</td>               
+              </tr>'; 
+    foreach ($rows as $row2) {
+      $total=$row2['total_cuenta'];
+      $id_restaurant=$row2['id_restaurant'];
+      $nombre_restaurant=$row2['nombre_restaurant'];
+
+       echo ' <tr class="bg-danger">
+                <td> '.$row2['cantidad'].'</td>
+                <td> '.$row2['nombre_plato'].' </td>
+                <td align="right">$ '.$row2['precio'].' </td>
+              </tr> ';
+                               
+    } 
+   // $consultaValoracion="SELECT * from bd_restorant.tbl_calificación_restorant ";
+          echo' <tr class="bg-primary">
+                  <th align="center" >TOTAL</th>
+                  <td align="center"><a class="comentar" href="evaluarRestaurant.php?id_restaurant='.$id_restaurant.'&nombre_restaurant='.$nombre_restaurant.'" data-toggle="modal">Evaluar Restaurant</a></td>
+                  <td align="right">$ '.$total.'</td>                
+                </tr>
+             </table>
+          </div> ';
+  $db = null;  
+  
+} 
+
+ function insertOpinion($id_cliente,$id_restaurant,$comentario,$estrellas){
+
+$db = conecta();
+
+$insert="INSERT into bd_restorant.tbl_calificacion_restorant(comentario,estrellas,id_cliente,id_restaurant)
+    values(:comentario,:estrellas,:id_cliente,:id_restaurant)";
+$resultado= $db->prepare($insert);
+ if ($resultado->execute(array(":comentario" => $comentario,
+     ":estrellas" => $estrellas,":id_cliente" => $id_cliente, ":id_restaurant" => $id_restaurant))){
+
+       $db = null;
+        return true;
+    } else {
+      
+       $db = null;
+        return false;
+
+    }
+$db = null;
 
 
+}
 
+function mostrarComentarios($id_restaurant){
+
+  $db = conecta();
+
+  $consulta="SELECT cr.comentario,cr.estrellas,cr.fecha_calificacion,c.nombre_cliente,c.apellido_cliente from bd_restorant.tbl_calificacion_restorant cr,bd_restorant.tbl_cliente c
+   where cr.id_restaurant=:id_restaurant and cr.id_cliente=c.id_cliente";
+  $resultado= $db->prepare($consulta);
+  if($resultado->execute(array(":id_restaurant"=>$id_restaurant)) && $resultado->rowCount()>0){
+
+      $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+      foreach ($rows as $row) {
+  echo '<a class="item g1"><p align="center">'.$row['nombre_cliente'].' '.$row['apellido_cliente'].'  ('.date('d-m-Y' ,strtotime($row['fecha_calificacion'])).')</p>';
+          $estrellas= $row['estrellas'];
+          $resto= (5 - $estrellas);
+
+    echo  ' <div class="col-md-8 col-xs-8  modal_body_right single-top-right">
+            <div class="single-rating">
+              <ul>';
+          echo   ' <li class="rating">'.'<p align="left">Calificación:</p>'.'</li>';
+              for($i=1;$i<=$estrellas;$i++){
+        echo     '<li><i class="fa fa-star-o" aria-hidden="true"></i></li>';
+              }
+              for($j=1;$j<=$resto;$j++){
+         echo   '<li class="w3act"><i class="fa fa-star-o" aria-hidden="true"></i></li>';
+              }  
+      echo  '         
+             <br></br><p align="center">'.$row['comentario'].'</p></ul> 
+            </div></div>';  
+      echo '    
+            </a>
+         ';      
+
+       
+      } 
+      
+      $db = null;
+        
+  } else {
+    echo "<script languaje='javascript'>alert('Error');</script>";
+     $db = null;
+      return false;  
+  }       
+}
 
 
 

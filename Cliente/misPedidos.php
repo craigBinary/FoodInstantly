@@ -1,24 +1,21 @@
-<?php 
-include ('inc/claseCliente.php');
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title>Perfil Restaurant</title>
+<title>Mis Pedidos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Custom Theme files -->
 <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-<link href="css/style.css" type="text/css" rel="stylesheet" media="all">  
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all"> 
+<link href="css/misPedidos.css" type="text/css" rel="stylesheet" media="all"> 
 <link href="css/font-awesome.css" rel="stylesheet"> <!-- font-awesome icons --> 
 <link rel="stylesheet" href="css/owl.carousel.css" type="text/css" media="all"/> <!-- Owl-Carousel-CSS -->
 <!-- //Custom Theme files --> 
 <!-- js -->
 <script src="js/jquery-2.2.3.min.js"></script>  
+ 
 <!-- //js -->
 <!-- web-fonts -->   
 <link href="//fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet"> 
@@ -26,7 +23,6 @@ include ('inc/claseCliente.php');
 <!-- //web-fonts -->
 </head>
 <body> 
-	<!-- banner -->
 	<div class="banner about-w3bnr">
 		<!-- header -->
 		<div class="header">
@@ -41,42 +37,49 @@ include ('inc/claseCliente.php');
 			</div>
 		</div>
 	</div>
-	<!-- //banner -->    
-	<!-- breadcrumb -->  
-	<div class="container">	
+	<div class="container">
 		<ol class="breadcrumb w3l-crumbs">
 			<li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
-			<li><a href="productos.php"><i class="fa fa-cutlery"></i> Productos</a></li>  
-			<li class="active">Perfil Restaurant</li>
+			<li class="active">Mis Pedidos</li>
 		</ol>
 	</div>
-	<!-- aquí empieza   -->
-	<?php
-	$obj = new claseCliente();
-	$id_restaurant= $_POST['id_restaurant'];
-	echo $obj->mostrarRestorant($id_restaurant);
+	<script>
+		$(function(){
+		  $(".accordion-titulo").click(function(e){
+		           
+		        e.preventDefault();
+		    
+		        var contenido=$(this).next(".accordion-content");
 
-	?>
-	<div class="w3agile-spldishes">
-		<div class="container">
-			<div class="spldishes-agileinfo">
-				<div class="col-md-12 spldishes-grids">
-					<!-- Owl-Carousel -->
-					<div id="owl-demo" class="owl-carousel text-center agileinfo-gallery-row" style="background-image: url('images/fondo.png'); background-size: cover;">
-						<?php 
-							//$obj2 = new claseCliente();
-						echo $obj->mostrarComentarios($id_restaurant);
-						?>
+		        if(contenido.css("display")=="none"){ //open 
+		        	$(".accordion-titulo").removeClass("open");
+					$(".accordion-content").slideUp(250);	       
+		         	contenido.slideDown(250);         
+		         	$(this).addClass("open");
+		        }
+		        else{ //close       
+		          contenido.slideUp(250);
+		          $(this).removeClass("open");  
+		        }
 
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
+		      });
+		});
+	</script>
+	<div class="faq-w3agile about">
+		<div id="container-main">
+			<h3 class="w3ls-title w3ls-title1">Mis Pedidos</h3> 
+			<div class="accordion-container">
+				<?php
+				include ('inc/claseCliente.php'); 
+				$mostrar = new claseCliente();
+				$id_cliente=2;
+				$mostrar->mostrarPedidos($id_cliente);
+				?>
+							 
+			</div> 
 		</div>
-	</div>
-	
-	<!-- aquí termina   -->
-   	<div class="copyw3-agile"> 
+	</div>	 
+	<div class="copyw3-agile"> 
 		<div class="container">
 			<p>&copy; 2017 Staple Food. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
 		</div>
@@ -100,29 +103,7 @@ include ('inc/claseCliente.php');
     </script>  
 	<!-- //cart-js --> 
 	<!-- Owl-Carousel-JavaScript -->
-	<script src="js/owl.carousel.js"></script>
-	<script>
-		$(document).ready(function() {
-			$("#owl-demo").owlCarousel ({
-				items : 3,
-				lazyLoad : true,
-				autoPlay : true,
-				pagination : true,
-			});
-		});
-	</script>
-	<!-- //Owl-Carousel-JavaScript -->  	
 	<!-- the jScrollPane script -->
-	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
-	<script type="text/javascript" id="sourcecode">
-		$(function()
-		{
-			$('.scroll-pane').jScrollPane();
-		});
-	</script>
-	<!-- //the jScrollPane script -->
-	<script type="text/javascript" src="js/jquery.mousewheel.js"></script> <!-- the mouse wheel plugin --> 
-	<!-- start-smooth-scrolling -->
 	<script src="js/SmoothScroll.min.js"></script>  
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>	
@@ -157,5 +138,6 @@ include ('inc/claseCliente.php');
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/ajax_tablas.js"></script>
 </body>
-</html>	
+</html>
