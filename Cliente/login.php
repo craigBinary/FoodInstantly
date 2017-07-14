@@ -4,6 +4,9 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,7 +35,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<?php include('inc/navlogin.php'); ?>
 			<!-- //header-one -->
 			<!-- navigation -->
-			<?php include('inc/navheader.php'); ?>
+
 			<!-- //navigation -->
 		</div>
 		<!-- //header-end -->
@@ -47,7 +50,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- breadcrumb -->
 	<div class="container">
 		<ol class="breadcrumb w3l-crumbs">
-			<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+			<li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
 			<li class="active">Login</li>
 		</ol>
 	</div>
@@ -67,10 +70,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<ul>
 							<li>
 								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>
-									<span> Recordar ?</span>
+									<span> Recordar</span>
 								</label>
 							</li>
-							<li><a href="#">Olvidaste la contraseña? que bueno</a> </li>
+							<li><a href="#">Olvidaste la contraseña? pincha aquí</a> </li>
 						</ul>
 						<div class="clearfix"> </div>
 					</div>
@@ -81,55 +84,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 	</div>
 	<!-- //login-page -->
-
-	<!-- footer -->
-	<div class="footer agileits-w3layouts">
-		<div class="container">
-			<div class="w3_footer_grids">
-				<div class="col-xs-6 col-sm-3 footer-grids w3-agileits">
-					<h3>company</h3>
-					<ul>
-						<li><a href="about.html">About Us</a></li>
-						<li><a href="contact.html">Contact Us</a></li>
-						<li><a href="careers.html">Careers</a></li>
-						<li><a href="help.html">Partner With Us</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-6 col-sm-3 footer-grids w3-agileits">
-					<h3>help</h3>
-					<ul>
-						<li><a href="faq.html">FAQ</a></li>
-						<li><a href="login.html">Returns</a></li>
-						<li><a href="login.html">Order Status</a></li>
-						<li><a href="offers.html">Offers</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-6 col-sm-3 footer-grids w3-agileits">
-					<h3>policy info</h3>
-					<ul>
-						<li><a href="terms.html">Terms & Conditions</a></li>
-						<li><a href="privacy.html">Privacy Policy</a></li>
-						<li><a href="login.html">Return Policy</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-6 col-sm-3 footer-grids w3-agileits">
-					<h3>Menu</h3>
-					<ul>
-						<li><a href="menu.html">All Day Menu</a></li>
-						<li><a href="menu.html">Lunch</a></li>
-						<li><a href="menu.html">Dinner</a></li>
-						<li><a href="menu.html">Flavours</a></li>
-					</ul>
-				</div>
 				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-	<div class="copyw3-agile">
-		<div class="container">
-			<p>&copy; 2017 Staple Food. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-		</div>
-	</div>
+	<?php include('inc/footer.php'); ?>
 	<!-- //footer -->
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>

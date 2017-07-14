@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +14,6 @@
 <link href="css/style.css" type="text/css" rel="stylesheet" media="all"> 
 <link href="css/misPedidos.css" type="text/css" rel="stylesheet" media="all"> 
 <link href="css/font-awesome.css" rel="stylesheet"> <!-- font-awesome icons --> 
-<link rel="stylesheet" href="css/owl.carousel.css" type="text/css" media="all"/> <!-- Owl-Carousel-CSS -->
 <!-- //Custom Theme files --> 
 <!-- js -->
 <script src="js/jquery-2.2.3.min.js"></script>  
@@ -26,7 +28,7 @@
 	<div class="banner about-w3bnr">
 		<!-- header -->
 		<div class="header">
-			<?php include('inc/navlogin.php'); ?>
+			
 			<?php include('inc/navheader.php'); ?>
 		</div>
 		<!-- //header-end --> 
@@ -72,18 +74,14 @@
 				<?php
 				include ('inc/claseCliente.php'); 
 				$mostrar = new claseCliente();
-				$id_cliente=2;
+				$id_cliente=$_SESSION['id_cliente'];
 				$mostrar->mostrarPedidos($id_cliente);
 				?>
 							 
 			</div> 
 		</div>
 	</div>	 
-	<div class="copyw3-agile"> 
-		<div class="container">
-			<p>&copy; 2017 Staple Food. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-		</div>
-	</div>
+	<?php include('inc/footer.php'); ?>
 	<!-- //footer -->   
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>
@@ -102,7 +100,17 @@
         });
     </script>  
 	<!-- //cart-js --> 
+	<!-- the jScrollPane script -->
+	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" id="sourcecode">
+		$(function()
+		{
+			$('.scroll-pane').jScrollPane();
+		});
+	</script>
+	<!-- //the jScrollPane script -->  
 	<!-- Owl-Carousel-JavaScript -->
+	<script type="text/javascript" src="js/jquery.mousewheel.js"></script> <!-- the mouse wheel plugin -->
 	<!-- the jScrollPane script -->
 	<script src="js/SmoothScroll.min.js"></script>  
 	<script type="text/javascript" src="js/move-top.js"></script>
@@ -116,7 +124,8 @@
 				});
 			});
 	</script>
-	<!-- //end-smooth-scrolling -->	  
+	<!-- //end-smooth-scrolling -->	
+	
 	<!-- smooth-scrolling-of-move-up -->
 	<script type="text/javascript">
 		$(document).ready(function() {

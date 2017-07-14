@@ -1,12 +1,10 @@
-<?php 
-include ('inc/claseCliente.php');
+<?php
 session_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title>Perfil Restaurant</title>
+<title>Cambio De Contraseña</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -15,9 +13,10 @@ session_start();
 <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 <link href="css/style.css" type="text/css" rel="stylesheet" media="all">  
 <link href="css/font-awesome.css" rel="stylesheet"> <!-- font-awesome icons --> 
-<link rel="stylesheet" href="css/owl.carousel.css" type="text/css" media="all"/> <!-- Owl-Carousel-CSS -->
+
 <!-- //Custom Theme files --> 
-<!-- js -->
+<!-- js Falta agregar el js para md5-->
+<script src="js/md5.js"></script>
 <script src="js/jquery-2.2.3.min.js"></script>  
 <!-- //js -->
 <!-- web-fonts -->   
@@ -26,18 +25,12 @@ session_start();
 <!-- //web-fonts -->
 </head>
 <body> 
-	<!-- banner -->
+	
 	<div class="banner about-w3bnr">
 		<!-- header -->
 		<div class="header">
-			<?php 
-			if(isset($_SESSION['id_cliente'])){
-				include('inc/navheader.php'); 
-			}else{
-
-				include('inc/navlogin.php');			
-			}
-			?>
+			
+			<?php include('inc/navheader.php'); ?>
 		</div>
 		<!-- //header-end --> 
 		<!-- banner-text -->
@@ -47,42 +40,65 @@ session_start();
 			</div>
 		</div>
 	</div>
-	<!-- //banner -->    
-	<!-- breadcrumb -->  
-	<div class="container">	
+	<div class="container">
 		<ol class="breadcrumb w3l-crumbs">
 			<li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
-			<li><a href="productos.php?id_restaurant=<?php echo $_POST['id_restaurant']; ?>"><i class="fa fa-cutlery"></i> Productos</a></li>  
-			<li class="active">Perfil Restaurant</li>
+			<li class="active">Cambio De Contraseña</li>
 		</ol>
 	</div>
-	<!-- aquí empieza   -->
 	<?php
-	$obj = new claseCliente();
-	$id_restaurant= $_POST['id_restaurant'];
-	echo $obj->mostrarRestorant($id_restaurant);
-
+	include ('inc/claseCliente.php'); 
+	$mostrar = new claseCliente();
+	$id_cliente=$_SESSION['id_cliente'];
+	$contraseña=$mostrar->mostrarContraseña($id_cliente);
 	?>
-	<div class="w3agile-spldishes">
-		<div class="container">
-			<div class="spldishes-agileinfo">
-				<div class="col-md-12 spldishes-grids">
-					<!-- Owl-Carousel -->
-					<div id="owl-demo" class="owl-carousel text-center agileinfo-gallery-row" style="background-image: url('images/fondo.png'); background-size: cover;">
-						<?php 
-							//$obj2 = new claseCliente();
-						echo $obj->mostrarComentarios($id_restaurant);
-						?>
+	<script>
+		function validaPass(){
+			var pass = document.getElementById("actual_pass").value;
+			var pass1= CryptoJS.MD5(pass);
+			var pass2="<?php echo $contraseña; ?>";
+			pass1=String(pass1);
+			pass2=String(pass2);
+			//alert(pass2);
+			if (pass1.length == 0 || pass2.length == 0 ) {
+			    alert("Primero debes ingresar la contraseña y confirmar");
+			    return false;
+			}
+			if (pass1 !== pass2) {
+				alert("La contraseña debe coincidir con la actual");
+			  
+			  return false;			
+		    }
 
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-	
-	<!-- aquí termina   -->
-   	<?php include('inc/footer.php'); ?>
+		}
+		function validaIgualdad(){
+
+			var p1 = document.getElementById("nueva_pass").value;
+  			var p2 = document.getElementById("nueva_pass2").value;
+  			if (p1.length == 0 || p2.length == 0 ) {
+			    alert("Primero debes ingresar la contraseña y confirmar");
+			    return false;
+			}
+			if (p1 != p2) {
+			  alert("La contraseña debe coincidir");
+			  return false;
+		    }
+		}
+	</script>
+	<div class="login-page about">
+	    <div class="container">
+		      <h3 class="w3ls-title w3ls-title1">Cambio De Contraseña</h3>
+		      <div class="login-agileinfo">
+		        <form action="cambioContraseña.php" method="post" onsubmit="return validaIgualdad(document.form);">          
+		            <input class="agile-ltext" type="password" value="" name="actual_pass" id="actual_pass" placeholder="Ingresa tu contraseña actual" required="" onblur="validaPass()">
+		            <input class="agile-ltext" type="password" name="nueva_pass" id="nueva_pass"  placeholder="Ingresa nueva contraseña" required="">
+		            <input class="agile-ltext" type="password" name="nueva_pass2" id="nueva_pass2" placeholder="Confirma nueva contraseña" required="">
+		            <input type="submit" value="Editar Contraseña" name="editarContraseña">
+		        </form>       
+		      </div>
+	    </div>
+    </div>
+	<?php include('inc/footer.php'); ?>
 	<!-- //footer -->   
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>
@@ -101,19 +117,7 @@ session_start();
         });
     </script>  
 	<!-- //cart-js --> 
-	<!-- Owl-Carousel-JavaScript -->
-	<script src="js/owl.carousel.js"></script>
-	<script>
-		$(document).ready(function() {
-			$("#owl-demo").owlCarousel ({
-				items : 3,
-				lazyLoad : true,
-				autoPlay : true,
-				pagination : true,
-			});
-		});
-	</script>
-	<!-- //Owl-Carousel-JavaScript -->  	
+	 	
 	<!-- the jScrollPane script -->
 	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
 	<script type="text/javascript" id="sourcecode">
@@ -160,4 +164,29 @@ session_start();
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.js"></script>
 </body>
-</html>	
+</html>
+<?php
+	//include ('inc/claseCliente.php'); 
+	//$mostrar = new claseCliente();
+	if(isset($_POST['editarContraseña'])){
+	    if(!empty($_POST['actual_pass']) && !empty($_POST['nueva_pass']) && !empty($_POST['nueva_pass2'])){
+	    	$contraseña=$_POST['nueva_pass'];
+			$contraseña= md5($contraseña);
+
+			if($mostrar->cambiarContraseña($id_cliente,$contraseña)){
+				echo"<script>
+		    		alert('Contraseña actualizada.');
+		    		window.location.href='index.php';
+		    		</script>";
+
+			}else{
+				echo"<script>
+		    		alert('Error al actualizar la contraseña.');
+		    		window.location.href='cambioContraseña.php';
+		    		</script>";
+
+			}
+
+		}
+	}		
+	?>

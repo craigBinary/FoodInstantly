@@ -1,3 +1,21 @@
+
+<div class="w3ls-header"><!-- header-one -->
+  <div class="container">
+    <div class="w3ls-header-left">
+      <p>Por si acaso</p>
+    </div>
+    <div class="w3ls-header-right">
+      <ul>       
+         <li class="head-dpdn">
+          <a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"> </div>
+  </div>
+</div>
+
+<!-- fin navLogin  -->
 <div class="navigation agiletop-nav">
   <div class="container">
     <nav class="navbar navbar-default">
@@ -14,49 +32,14 @@
       <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="index.php" class="active">Home</a></li>
-          <!-- Mega Menu -->
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menú <b class="caret"></b></a>
-            <ul class="dropdown-menu multi-column columns-3">
-              <div class="row">
-                <div class="col-sm-4">
-                  <ul class="multi-column-dropdown">
-                    <li><a href="menu.php"><h6>Tipos de comida</h6></a></li>
-                   <!-- <li><a href="menu.html">Breakfast</a></li>
-                    <li><a href="menu.html">Lunch</a></li>
-                    <li><a href="menu.html">Dinner</a></li> -->
-                  </ul>
-                </div>
-                <div class="col-sm-4">
-                  <ul class="multi-column-dropdown">
-                   <li><a href="menu.html"> <h6>Mis favoritos</h6></a></li>
-                   <!-- <li><a href="menu.html">Indian Recipes</a></li>
-                    <li><a href="menu.html">American Recipes</a></li>
-                    <li><a href="menu.html">French Recipes</a></li>
-                    <li><a href="menu.html">Italian Recipes</a></li>  -->
-                  </ul>
-                </div>
-                <div class="col-sm-4">
-                  <ul class="multi-column-dropdown">
-                    <h6>Box type</h6>
-                    <li><a href="menu.html">Diet</a></li>
-                    <li><a href="menu.html">Mini</a></li>
-                    <li><a href="menu.html">Regular</a></li>
-                    <li><a href="menu.html">Special</a></li>
-                  </ul>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </ul>
-          </li>
-          <li><a href="about.html">About</a></li>
           <li class="w3pages"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi Perfil <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="editarDatos.php">Editar Datos</a></li>
               <li><a href="misPedidos.php">Mis Pedidos</a></li>
+              <li><a href="cambioContraseña.php">Cambio De Contraseña</a></li>
             </ul>
           </li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="terms.php">Términos</a></li>
         </ul>
       </div>
       <div class="cart cart box_1">

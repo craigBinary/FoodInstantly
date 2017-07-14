@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title>Menú de platos</title>
+<title>Términos De Uso</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -13,6 +13,7 @@ session_start();
 <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 <link href="css/style.css" type="text/css" rel="stylesheet" media="all">  
 <link href="css/font-awesome.css" rel="stylesheet"> <!-- font-awesome icons --> 
+<!-- //Custom Theme files --> 
 <!-- js -->
 <script src="js/jquery-2.2.3.min.js"></script>  
 <!-- //js -->
@@ -20,7 +21,6 @@ session_start();
 <link href="//fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet"> 
 <link href="//fonts.googleapis.com/css?family=Yantramanav:100,300,400,500,700,900" rel="stylesheet">
 <!-- //web-fonts -->
-
 </head>
 <body> 
 	<!-- banner -->
@@ -38,7 +38,6 @@ session_start();
 			<!--<?php // include('inc/navlogin.php'); ?>
 			<?php // include('inc/navheader.php'); ?>-->
 		</div>
-		
 		<!-- //header-end --> 
 		<!-- banner-text -->
 		<div class="banner-text">	
@@ -52,73 +51,36 @@ session_start();
 	<div class="container">	
 		<ol class="breadcrumb w3l-crumbs">
 			<li><a href="index.php"><i class="fa fa-home"></i> Home</a></li> 
-			<li class="active">Productos</li>
+			<li class="active">Términos</li>
 		</ol>
 	</div>
 	<!-- //breadcrumb -->
-	<!-- products -->
-	<div class="products">	 
-		<div class="container">
-			<div class="col-md-12 product-w3ls-right"> 
-				<div class="product-top">
-					<h4>Hazla Corta</h4>
-					<ul> 
-						<li class="dropdown head-dpdn">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tipo de comida<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="productos.php?id_restaurant=<?php echo $_GET['id_restaurant']; ?>">TODOS</a></li>
-								<?php
-								include ('inc/claseCliente.php'); 
-								$lista= new claseCliente();
-								$id_restaurant = $_GET['id_restaurant'];
-								$lista->listarTipoPlato($id_restaurant);
-								
-								?>
-							</ul> 
-						</li>
-					</ul> 
-					<div class="clearfix"> </div>
-				</div>
-				<div class="products-row">
-
-				<?php
-					if(!isset($_GET['id_tipo'])){
-						$lista->listarPlatos($id_restaurant);
-					}else{
-						
-						$id_tipo=$_GET['id_tipo'];
-						$lista->listarPlatos2($id_restaurant,$id_tipo);
-					}
-
-				?>
-					<div class="clearfix"> </div>
-				</div>
+	<!-- privacy-page -->
+	<div class="privacy about">
+		<div class="container"> 
+			<h3 class="w3ls-title w3ls-title1">Términos y Condiciones</h3>  
+			<div class="privacy-w3row">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare turpis ut porta aliquet. Morbi quis dictum lacus. Donec scelerisque lacus nec lobortis tempor. Morbi orci arcu, ullamcorper ut arcu vel, ultricies congue lacus. Phasellus porta cursus tempor. Nunc ultricies sapien nec est ornare pulvinar. Vivamus mollis faucibus purus sed blandit. Praesent fermentum dapibus risus id rutrum. Aliquam rutrum vel nulla eu fringilla.</p>
+				<p>Nunc ornare turpis ut porta aliquet. Morbi quis dictum lacus. Donec scelerisque lacus nec lobortis tempor. Morbi orci arcu, ullamcorper ut arcu vel, ultricies congue lacus. Phasellus porta cursus tempor. Nunc ultricies sapien nec est ornare pulvinar. Vivamus mollis faucibus purus sed blandit. Praesent fermentum dapibus risus id rutrum. Aliquam rutrum vel nulla eu fringilla. Curabitur efficitur justo a est tempor, pretium accumsan leo sagittis. Ut imperdiet sapien velit, a auctor neque laoreet sed. Praesent ornare nulla sit amet ullamcorper vulputate. Suspendisse vitae magna finibus, egestas eros quis, ornare risus. Duis magna ex, ultrices quis tellus non, commodo eleifend odio. Donec et faucibus risus. Aliquam laoreet justo sapien. </p>
+				<h5>PRICES AND PAYMENT</h5>  
+				<p>Maecenas malesuada leo dui, at venenatis ligula sodales ut. Cras a feugiat orci. </p>
+				<p>Pellentesque metus enim, aliquet eu felis sed, pretium ultrices ante convallis nec turpis.</p>
+				<p>Phasellus imperdiet nibh et lorem tincidunt aliquam. Integer elementum purus non venenatis volutpat. Curabitur sit amet neque sed arcu pretium iaculis. Phasellus posuere egestas tortor a molestie. Nulla sed urna dignissim, maximus magna et, elementum metus. Ut dolor lorem, mattis eu consectetur non, euismod quis nulla. </p>			
+				<h5>SECURITY</h5>  
+				<p>Phasellus imperdiet nibh et lorem tincidunt aliquam. Integer elementum purus non venenatis volutpat. Curabitur sit amet neque sed arcu pretium iaculis. Phasellus posuere egestas tortor a molestie. Nulla sed urna dignissim, maximus magna et, elementum metus. Ut dolor lorem, mattis eu consectetur non, euismod quis nulla. </p>
+				<p>Donec scelerisque lacus nec lobortis tempor donec et faucibus risus. Aliquam laoreet justo sapien. </p>
+				<p>Pellentesque quis sagittis est. Nam placerat ante at nunc ornare, sed faucibus odio interdum. Nam viverra, purus ac ullamcorper convallis, lorem erat consequat enim, at pharetra magna. </p>
+				<h5>ORDER CONDITIONS, DELIVERY</h5>  
+				<p>Maecenas malesuada leo dui, at venenatis ligula sodales ut. Cras a feugiat orci. </p>
+				<p>Pellentesque metus enim, aliquet eu felis sed, pretium ultrices ante convallis nec turpis.</p>
 			</div>
-			<div class="clearfix"> </div> 
 		</div>
 	</div>
-	<!-- //products --> 
-	<!-- modal -->
-	<div class="modal video-modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>						
-				</div>
-				<section>
-          		<div class="modal-body">
-				<!-- aquí va la llamada de la vista previa  -->
-          		</div>
-          		</section> 
-			</div>
-		</div>
-	</div> 
-	<!-- //modal -->
+	<!-- //privacy-page -->  
 	
 	<!-- footer -->
-	
 	<?php include('inc/footer.php'); ?>
-	<!-- //footer -->   
+	<!-- //footer -->
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>
 	<script>
@@ -135,19 +97,7 @@ session_start();
         	}
         });
     </script>  
-	<!-- //cart-js --> 
-	
-	<!-- //Owl-Carousel-JavaScript -->  	
-	<!-- the jScrollPane script -->
-	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
-	<script type="text/javascript" id="sourcecode">
-		$(function()
-		{
-			$('.scroll-pane').jScrollPane();
-		});
-	</script>
-	<!-- //the jScrollPane script -->
-	<script type="text/javascript" src="js/jquery.mousewheel.js"></script> <!-- the mouse wheel plugin --> 
+	<!-- //cart-js -->	
 	<!-- start-smooth-scrolling -->
 	<script src="js/SmoothScroll.min.js"></script>  
 	<script type="text/javascript" src="js/move-top.js"></script>
@@ -178,11 +128,10 @@ session_start();
 			
 		});
 	</script>
-	<!-- //smooth-scrolling-of-move-up -->  
+	<!-- //smooth-scrolling-of-move-up --> 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/ajax_previa.js"></script>   
 </body>
 </html>

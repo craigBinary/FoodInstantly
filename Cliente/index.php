@@ -4,6 +4,9 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,7 +18,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
 <link href="css/font-awesome.css" rel="stylesheet"> <!-- font-awesome icons -->
-<link rel="stylesheet" href="css/owl.carousel.css" type="text/css" media="all"/> <!-- Owl-Carousel-CSS -->
 <!-- //Custom Theme files -->
 <!-- js -->
 <script src="js/jquery-2.2.3.min.js"></script>
@@ -31,11 +33,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="banner">
 		<!-- header -->
 		<div class="header">
-			<?php include('inc/navlogin.php'); ?>
-			<!-- //header-one -->
-			<!-- navigation -->
-			<?php include('inc/navheader.php'); ?>
-			<!-- //navigation -->
+			<?php 
+			$id_cliente="";
+			if(isset($_SESSION['id_cliente'])){
+				include('inc/navheader.php'); 
+			}else{
+
+				include('inc/navlogin.php');			
+			}
+			?>
 		</div>
 		<!-- //header-end -->
 		<!-- banner-text -->
@@ -122,19 +128,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         });
     </script>
 	<!-- //cart-js -->
-	<!-- Owl-Carousel-JavaScript -->
-	<script src="js/owl.carousel.js"></script>
-	<script>
-		$(document).ready(function() {
-			$("#owl-demo").owlCarousel ({
-				items : 3,
-				lazyLoad : true,
-				autoPlay : true,
-				pagination : true,
-			});
-		});
-	</script>
-	<!-- //Owl-Carousel-JavaScript -->
 	<!-- start-smooth-scrolling -->
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>

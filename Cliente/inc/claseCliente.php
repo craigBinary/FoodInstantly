@@ -8,17 +8,17 @@ include('conecta.php');
  */
 class claseCliente{
 
-function error_log($msg){
-  $logfile='log/error.log';
-  file_put_contents($logfile, $msg. "\n", FILE_APPEND);
-}
 
   function validaLoginCliente($usuario, $pass){
         $db = conecta();
-        $consulta="SELECT usuario_cliente,password_cliente from sistema_restaurant.tbl_cliente
+        $consulta="SELECT id_cliente,usuario_cliente,password_cliente from tbl_cliente
                    where usuario_cliente=:usuario and password_cliente=:pass ";
         $resultado = $db->prepare($consulta);
         if($resultado->execute(array(":usuario"=>$usuario,":pass"=>$pass)) && $resultado->rowCount()>0){
+          $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+          foreach($rows as $row){
+                  $_SESSION["id_cliente"]=$row["id_cliente"];
+          }
             return true;
         }else{
             return false;
@@ -29,14 +29,14 @@ function error_log($msg){
 function registroUsuario($nombreUsuario,$apellidoUsuario,$celular,$usuario,$mail,$pass){
 
   $db = conecta();
-  $consulta="SELECT usuario_cliente from sistema_restaurant.tbl_cliente where usuario_cliente=?";
+  $consulta="SELECT usuario_cliente from tbl_cliente where usuario_cliente=?";
   $resultado=$db->prepare($consulta);
   $existe=false;
   if($resultado->execute(array($usuario)) && $resultado->rowCount()>0){
     $existe=true;
   }
   if(!$existe){
-    $insert="INSERT into sistema_restaurant.tbl_cliente (id_cliente,nombre_cliente, apellido_cliente,celular, usuario_cliente, mail, password_cliente)
+    $insert="INSERT into tbl_cliente (id_cliente,nombre_cliente, apellido_cliente,celular, usuario_cliente, mail, password_cliente)
     values(NULL,:nombreUsuario,:apellidoUsuario,:celular,:usuario,:mail,:pass)";
     $resultado = $db->prepare($insert);
      if ($resultado->execute(array(":nombreUsuario" => $nombreUsuario,
@@ -58,12 +58,52 @@ function registroUsuario($nombreUsuario,$apellidoUsuario,$celular,$usuario,$mail
       $db = null;
 }
 
+function mostrarContraseña($id_cliente){
+
+$db = conecta();
+        $consulta="SELECT password_cliente from tbl_cliente
+                   where id_cliente=:id_cliente ";
+        $resultado = $db->prepare($consulta);
+        if($resultado->execute(array(":id_cliente"=>$id_cliente)) && $resultado->rowCount()>0){
+          $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+          foreach($rows as $row){
+                  $contraseña=$row["password_cliente"];
+          }
+            return $contraseña;
+        }else{
+           echo "<script languaje='javascript'>alert('ERROR:No se encontró la contraseña.'; </script>";
+            return false;
+
+        }
+        $db = null;
+}
+
+function cambiarContraseña($id_cliente,$contrasena){
+
+ $db = conecta();
+
+    $update="UPDATE tbl_cliente SET password_cliente=:contrasena WHERE id_cliente=:id_cliente ";
+    $resultado = $db->prepare($update);
+     if ($resultado->execute(array(":contrasena" => $contrasena, ":id_cliente" => $id_cliente))){
+
+       $db = null;
+        return true;
+    } else {
+      
+        $db = null;
+        return false;
+
+    }
+       $db = null;
+
+}
+
 /*
 function listarPlatos(){
 
 $db = conecta();
 
-$consulta = "select * from sistema_restaurant.tbl_plato";
+$consulta = "select * from tbl_plato";
 $resultado= $db->prepare($consulta);
 $array= array();  
 if($resultado->execute() && $resultado->rowCount()>0){
@@ -83,7 +123,7 @@ function listarComunas(){
 
 $db = conecta();
 
-$consulta = "select * from sistema_restaurant.tbl_comuna";
+$consulta = "select * from tbl_comuna";
 $resultado= $db->prepare($consulta);
 $array= array();  
 if($resultado->execute() && $resultado->rowCount()>0){
@@ -103,7 +143,7 @@ function listarComunas(){
 
       $devolver = "";
       $db = conecta();
-      $consulta="SELECT * from sistema_restaurant.tbl_comuna ";
+      $consulta="SELECT * from tbl_comuna ";
       $resultado=$db->prepare($consulta);
       $resultado->execute();
       $devolver .= '<option value="0" default selected> Seleccione Comuna</option>';
@@ -122,7 +162,7 @@ function listarRestaurant(){
       $devolver = "";
       $id = $_POST['id'];
       $db = conecta();
-      $consulta="SELECT id_restaurant,nombre_restaurant,id_comuna,direccion from sistema_restaurant.tbl_restaurant where estado_restaurant='activo' and id_comuna = :id ";
+      $consulta="SELECT id_restaurant,nombre_restaurant,id_comuna,direccion from tbl_restaurant where estado_restaurant='activo' and id_comuna = :id ";
       $resultado=$db->prepare($consulta);
       //$resultado=$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $resultado-> bindParam(":id", $id, PDO::PARAM_INT);
@@ -142,7 +182,7 @@ function listarRestaurant(){
 
 $db = conecta();
 
-$consulta = "select * from sistema_restaurant.tbl_restaurant";
+$consulta = "select * from tbl_restaurant";
 $resultado= $db->prepare($consulta);
 $local= array();  
 if($resultado->execute() && $resultado->rowCount()>0){
@@ -161,7 +201,7 @@ return json_encode($local);
 function listarTipoPlato(){
   $db = conecta();
 try {
-$consulta = "select * from sistema_restaurant.tbl_tipo_plato";
+$consulta = "select * from tbl_tipo_plato";
 $resultado= $db->prepare($consulta);
 $resultado->execute();
   $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -181,7 +221,7 @@ $resultado->execute();
 function listarTipoPlato($id_restaurant){
   $db = conecta();
 try {
-$consulta = "SELECT DISTINCT tp.id_tipo_plato,tp.nombre_tipo FROM sistema_restaurant.tbl_plato p, sistema_restaurant.tbl_restaurant r, sistema_restaurant.tbl_tipo_plato tp WHERE p.id_restaurant=:id_restaurant and p.id_tipo_plato=tp.id_tipo_plato ";
+$consulta = "SELECT DISTINCT tp.id_tipo_plato,tp.nombre_tipo FROM tbl_plato p, tbl_restaurant r, tbl_tipo_plato tp WHERE p.id_restaurant=:id_restaurant and p.id_tipo_plato=tp.id_tipo_plato ";
 $resultado= $db->prepare($consulta);
 $resultado->execute(array(":id_restaurant"=>$id_restaurant));
 $id_tipo="";
@@ -203,8 +243,8 @@ function listarPlatos($id_restaurant){
 
   $db = conecta();
 
-  $consulta = "SELECT r.id_restaurant,tp.*, p.* from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_plato p,sistema_restaurant.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
-  and p.id_tipo_plato=tp.id_tipo_plato ORDER BY p.precio ASC ";
+  $consulta = "SELECT r.id_restaurant,tp.*, p.*,im.imagen_plato from tbl_restaurant r,tbl_plato p,tbl_tipo_plato tp,tbl_imagen_plato im where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1 and im.id_plato=p.id_plato
+  and p.id_tipo_plato=tp.id_tipo_plato ORDER BY p.precio ASC "; 
   $resultado= $db->prepare($consulta);
     
   if($resultado->execute(array(":id_restaurant"=>$id_restaurant)) && $resultado->rowCount()>0){
@@ -215,17 +255,31 @@ function listarPlatos($id_restaurant){
      echo   '<div class="flip-container">';
      echo     '<div class="flipper agile-products">';  
      echo       '<div class="front"> ';
-     echo         '<img src="images/g1.jpg" class="img-responsive" alt="img"> ';
+                  $rutaCompleta=$row['imagen_plato'];
+                  $ruta=substr($rutaCompleta,6);
+     echo         '<img src="'.$ruta.'" style="width: 640px; height:170px" class="img-responsive" alt=" " > ';
+     
               if($count%2==0){
                 echo '<div class="agile-product-text"> '; 
               }else{
                 echo '<div class="agile-product-text agile-product-text2 "> ';
-              }                
-              echo "<h5>".$row['nombre_plato']."</h5>";  
+              }      
+              $nombrePlato=$row['nombre_plato'];
+              if(strlen($nombrePlato)<=19){
+                 echo "<h5>".$nombrePlato."</h5>";
+               }else{
+                echo "<h5>".substr($row['nombre_plato'],0,15)."...</h5>";
+               }          
+               
             echo "</div>
                 </div> "; 
             echo  '<div class="back">';
-            echo  "<h4>".$row['nombre_plato']."</h4>";            
+            if(strlen($nombrePlato)<=19){
+                 echo "<h4>".$nombrePlato."</h4>";
+               }else{
+                echo "<h4>".substr($row['nombre_plato'],0,15)."...</h4>";
+               } 
+                       
             echo  "<p>"."Tiempo de preparacion:"." ".$row['tiempo_preparacion']." min."."</p>";
             echo  "<h6><sup>$</sup>".$row['precio']."</h6>";
             echo    '<form action="#" method="post" name="form_platos" onSubmit="return false">
@@ -234,9 +288,13 @@ function listarPlatos($id_restaurant){
                     <input type="hidden" name="cmd" value="_cart">
                     <input type="hidden" name="add" value="1"> 
                     <input type="hidden" name="w3ls_item" value="'.$row['nombre_plato'].'"> 
-                    <input type="hidden" name="amount" value="'.$row['precio'].'"> 
-                    <button type="submit" class="w3ls-cart pw3ls-cart"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Agregar</button>
-                    <span class="w3-agile-line"> </span>                    
+                    <input type="hidden" name="amount" value="'.$row['precio'].'"> ';
+                    if(isset($_SESSION['id_cliente'])){
+                echo '<button type="submit" class="w3ls-cart pw3ls-cart"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Agregar</button>';
+                    }else{
+                echo ' <a href="login.php" >Iniciar sesión</a>  ';      
+                    }
+                echo '<span class="w3-agile-line"> </span>                    
                     <a class="buscame" id="'.$row['id_plato'].'" href="#" data-toggle="modal" data-target="#myModal1">Más</a> 
                   </form>
                 </div>
@@ -263,8 +321,8 @@ function listarPlatos2($id_restaurant,$id_tipo){
   $db = conecta();
   
   
-    $consulta = "SELECT r.id_restaurant,tp.*, p.* from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_plato p,sistema_restaurant.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
-      and p.id_tipo_plato=tp.id_tipo_plato and p.id_tipo_plato=:id_tipo ORDER BY p.precio ASC";
+    $consulta = "SELECT r.id_restaurant,tp.*, p.*,im.imagen_plato from tbl_restaurant r,tbl_plato p,tbl_tipo_plato tp,tbl_imagen_plato im where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and im.id_plato=p.id_plato and p.estado_plato = 1 and p.id_tipo_plato=tp.id_tipo_plato and 
+       p.id_tipo_plato=:id_tipo ORDER BY p.precio ASC";
    
   $resultado= $db->prepare($consulta);
    
@@ -276,17 +334,28 @@ function listarPlatos2($id_restaurant,$id_tipo){
      echo   '<div class="flip-container">';
      echo     '<div class="flipper agile-products">';  
      echo       '<div class="front"> ';
-     echo         '<img src="images/g1.jpg" class="img-responsive" alt="img"> ';
+                  $rutaCompleta=$row['imagen_plato'];
+                  $ruta=substr($rutaCompleta,6);
+     echo         '<img src="'.$ruta.'" style="width: 640px; height:170px" class="img-responsive" alt=" " > ';
               if($count%2==0){
                 echo '<div class="agile-product-text"> '; 
               }else{
                 echo '<div class="agile-product-text agile-product-text2 "> ';
               }                
-              echo "<h5>".$row['nombre_plato']."</h5>";  
+              $nombrePlato=$row['nombre_plato'];
+              if(strlen($nombrePlato)<=19){
+                 echo "<h5>".$nombrePlato."</h5>";
+               }else{
+                echo "<h5>".substr($row['nombre_plato'],0,15)."...</h5>";
+               }   
             echo "</div>
                 </div> "; 
             echo  '<div class="back">';
-            echo  "<h4>".$row['nombre_plato']."</h4>";            
+            if(strlen($nombrePlato)<=19){
+                 echo "<h4>".$nombrePlato."</h4>";
+               }else{
+                echo "<h4>".substr($row['nombre_plato'],0,15)."...</h4>";
+               }             
             echo  "<p>"."Tiempo de preparacion:"." ".$row['tiempo_preparacion']." min."."</p>";
             echo  "<h6><sup>$</sup>".$row['precio']."</h6>";
             echo    '<form action="#" method="post" name="form_platos" onSubmit="">
@@ -295,9 +364,14 @@ function listarPlatos2($id_restaurant,$id_tipo){
                     <input type="hidden" name="cmd" value="_cart">
                     <input type="hidden" name="add" value="1"> 
                     <input type="hidden" name="w3ls_item" value="'.$row['nombre_plato'].'"> 
-                    <input type="hidden" name="amount" value="'.$row['precio'].'"> 
-                    <button type="submit" class="w3ls-cart pw3ls-cart"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Agregar</button>
-                    <span class="w3-agile-line"> </span>                    
+                    <input type="hidden" name="amount" value="'.$row['precio'].'"> ';
+                     if(isset($_SESSION['id_cliente'])){
+                echo '<button type="submit" class="w3ls-cart pw3ls-cart"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Agregar</button>';
+                    }else{
+                echo ' <a href="login.php" >Iniciar sesión</a>  ';      
+                    }
+                echo ' 
+                       <span class="w3-agile-line"> </span>                    
                     <a class="buscame" id="'.$row['id_plato'].'" href="" data-toggle="modal" data-target="#myModal1">Más</a> 
                   </form>
                 </div>
@@ -326,10 +400,10 @@ function listarPlatos2(){
   $id_restaurant=intval($_POST['id_restaurant']);
   $id_tipo=intval($_POST['id_tipo']);
   if($id_tipo !=0){
-    $consulta = "select r.id_restaurant,tp.*, p.* from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_plato p,sistema_restaurant.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
+    $consulta = "select r.id_restaurant,tp.*, p.* from tbl_restaurant r,tbl_plato p,tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
       and p.id_tipo_plato=tp.id_tipo_plato and p.id_tipo_plato=:id_tipo ORDER BY p.precio ASC";
   }else{
-    $consulta = "select r.id_restaurant,tp.*, p.* from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_plato p,sistema_restaurant.tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
+    $consulta = "select r.id_restaurant,tp.*, p.* from tbl_restaurant r,tbl_plato p,tbl_tipo_plato tp where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1
        and p.id_tipo_plato=tp.id_tipo_plato ORDER BY p.precio ASC";
   }
   
@@ -399,7 +473,7 @@ $id_plato=intval($_POST['id']);
 $db = conecta();
 
  $consulta = "SELECT r.id_restaurant, r.nombre_restaurant, r.info_restaurant, r.id_comuna, r.num_contacto, r.email , r.direccion, r.calificacion , c.nombre_comuna, p.nombre_plato, tp.nombre_tipo, p.descripcion_plato   
- from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_comuna c, sistema_restaurant.tbl_plato p, sistema_restaurant.tbl_tipo_plato tp  
+ from tbl_restaurant r,tbl_comuna c, tbl_plato p, tbl_tipo_plato tp  
  where r.id_comuna=c.id_comuna and r.id_restaurant=p.id_restaurant and p.id_tipo_plato=tp.id_tipo_plato and r.id_restaurant =:id_restaurant and p.id_plato=:id_plato";
   $resultado= $db->prepare($consulta);
   //$array= array();  
@@ -416,6 +490,7 @@ $db = conecta();
      echo     '<h3 class="item_name">'.$row['nombre_restaurant'].'</h3>';
      echo     "<p>"."dirección:"." ".$row['direccion'].",".$row['nombre_comuna']."."."</p> ";
               $estrellas= $row['calificacion'];
+              
               $resto= (5 - $estrellas);
       echo    '<div class="single-rating">
                 <ul>';
@@ -429,7 +504,8 @@ $db = conecta();
                 </ul> 
               </div>
               <div class="single-price"> ';
-        echo   '<p class="single-price-text">'.'Tipo plato:'.' '.$row['nombre_tipo']. '</p>';
+        echo   '<p class="single-price-text">'.'Nombre del plato:'.' '.$row['nombre_plato']. '</br>'
+                 .'Tipo de plato:'.' '.$row['nombre_tipo']. '</p>';
         echo   ' </div> ';
       echo   '<p class="single-price-text">'.'Descripción:'.' '.$row['descripcion_plato']. '</p>';
       echo    '<form action="perfilRestaurant.php" method="post">
@@ -454,9 +530,9 @@ function mostrarRestorant($id_restaurant){
 
 $db = conecta();
 
- $consulta = "SELECT r.id_restaurant, r.nombre_restaurant, r.info_restaurant, r.id_comuna, r.num_contacto, r.email , r.direccion, r.calificacion ,r.mapa, c.nombre_comuna  
- from sistema_restaurant.tbl_restaurant r,sistema_restaurant.tbl_comuna c 
- where r.id_comuna=c.id_comuna and r.id_restaurant =:id_restaurant ";
+ $consulta = "SELECT r.id_restaurant, r.nombre_restaurant, r.info_restaurant, r.id_comuna, r.num_contacto, r.email , r.direccion, r.calificacion ,r.mapa, c.nombre_comuna 
+ from tbl_restaurant r,tbl_comuna c
+ where r.id_comuna=c.id_comuna and r.id_restaurant =:id_restaurant "; //,i.imagen_restaurant as ruta  ,tbl_imagen_restaurant i   and i.id_restaurant=r.id_restaurant
   $resultado= $db->prepare($consulta);
  
    if($resultado->execute(array(":id_restaurant"=>$id_restaurant)) && $resultado->rowCount()>0){
@@ -468,8 +544,10 @@ $db = conecta();
         <div class="container">
         <div class="row">
           <div class="modal-body">
-            <div class="col-md-3 modal_body_left">
-              <img src="images/s1.jpg" alt=" " class="img-responsive">
+            <div class="col-md-3 modal_body_left"> ';
+             //$rutaCompleta= $row['ruta'];
+            //$ruta=substr($rutaCompleta,6); <img class="img-responsive" src="'.$ruta.'" alt="img" >
+   echo '       <img src="images/s1.jpg" alt=" " class="img-responsive">
             </div>
             <div class="col-md-7 modal_body_right single-top-right"> ';
      echo     '<h3 class="item_name">'.$row['nombre_restaurant'].'</h3>';
@@ -529,7 +607,7 @@ function mostrarDatosPerfil($id_cliente){
 
 $db = conecta();
 
-  $consulta = "SELECT * from sistema_restaurant.tbl_cliente
+  $consulta = "SELECT * from tbl_cliente
   where id_cliente=:id_cliente ";
   $resultado= $db->prepare($consulta);
   if($resultado->execute(array(":id_cliente"=>$id_cliente)) && $resultado->rowCount()>0){
@@ -546,7 +624,7 @@ $db = conecta();
               <input class="agile-ltext" type="text" name="apellido" placeholder="Apellido" required="" value="'.$row['apellido_cliente'].'">
               <input class="agile-ltext" type="text" name="celular" placeholder="Celular" required="" value="'.$row['celular'].'">              
               <input class="agile-ltext" type="email" name="mail" placeholder="Correo electrónico" required="" value="'.$row['mail'].'">
-              <input type="submit" value="Editar" name="editarDatos">
+              <input type="submit" value="Editar Datos" name="editarDatos">
         </form>       
       </div>
       </div>
@@ -565,7 +643,7 @@ $db = conecta();
 function updDatosCliente($id_cliente,$nombreUsuario,$apellidoUsuario,$celular,$mail){
 
 $db = conecta();
-$update="UPDATE sistema_restaurant.tbl_cliente SET nombre_cliente=:nombreUsuario, apellido_cliente=:apellidoUsuario ,celular=:celular ,mail=:mail WHERE id_cliente=:id_cliente ";
+$update="UPDATE tbl_cliente SET nombre_cliente=:nombreUsuario, apellido_cliente=:apellidoUsuario ,celular=:celular ,mail=:mail WHERE id_cliente=:id_cliente ";
  $resultado = $db->prepare($update);
  if ($resultado->execute(array(":id_cliente" => $id_cliente,":nombreUsuario" => $nombreUsuario,
      ":apellidoUsuario" => $apellidoUsuario,":celular" => $celular, ":mail" => $mail))){
@@ -584,8 +662,8 @@ $update="UPDATE sistema_restaurant.tbl_cliente SET nombre_cliente=:nombreUsuario
 function mostrarPedidos($id_cliente){
 
 $db = conecta();
-$consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restaurant,r.direccion, s.estado_solicitud from sistema_restaurant.tbl_solicitud s, sistema_restaurant.tbl_restaurant r
-  where s.id_cliente=:id_cliente and s.id_restaurant=r.id_restaurant";
+$consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restaurant,r.direccion, s.estado_solicitud from tbl_solicitud s, tbl_restaurant r
+  where s.id_cliente=:id_cliente and s.id_restaurant=r.id_restaurant ORDER BY s.fecha_hora DESC";
  $resultado= $db->prepare($consulta);
   if($resultado->execute(array(":id_cliente"=>$id_cliente)) && $resultado->rowCount()>0){
     $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -596,7 +674,8 @@ $consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restau
       $nombre_restaurant=$row['nombre_restaurant'];
       $direccion=$row['direccion'];
       $estado_solicitud=$row['estado_solicitud'];
-      $consulta2="SELECT MAX(p.tiempo_preparacion)as tiempo_maximo from sistema_restaurant.tbl_detalle_solicitud ds, sistema_restaurant.tbl_solicitud s, sistema_restaurant.tbl_plato p where s.id_restaurant=$id_restaurant and ds.id_solicitud=s.id_solicitud and p.id_plato=ds.id_plato and s.estado_solicitud='pagado' and s.id_solicitud=$id_solicitud";
+       if($estado_solicitud=="cerrado")  $estado_solicitud="entregado";
+      $consulta2="SELECT MAX(p.tiempo_preparacion)as tiempo_maximo from tbl_detalle_solicitud ds, tbl_solicitud s, tbl_plato p where s.id_restaurant=$id_restaurant and ds.id_solicitud=s.id_solicitud and p.id_plato=ds.id_plato and s.estado_solicitud='pagado' and s.id_solicitud=$id_solicitud";
       $resultado2= $db->prepare($consulta2);
       $resultado2->execute();
       $rows2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);
@@ -625,14 +704,14 @@ $consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restau
                 $horaFinalC="";
                  if($horaF>=12){ $horaFinalC=$horaFinal." PM";}else{$horaFinalC=$horaFinal." AM";} 
       echo '
-       <a href="#" class="accordion-titulo" id="'.$id_solicitud.'" >Fecha: '.date('d-m-Y H:i' ,strtotime($fechaSolicitud)).'~ '.$nombre_restaurant.','.$direccion.'~ Hora de entrega '.$horaFinalC.'~ Estado:'.$estado_solicitud.' <span class="toggle-icon"></span></a>
+       <a href="#" class="accordion-titulo" id="'.$id_solicitud.'" >Fecha: '.date('d-m-Y H:i' ,strtotime($fechaSolicitud)).'~ '.$nombre_restaurant.','.$direccion.'~ Hora de entrega '.$horaFinalC.'~ Estado: '.$estado_solicitud.' <span class="toggle-icon"></span></a>
         <div class="accordion-content">
          
         </div> ';
        
       }
     }
-     return true;
+     //return true;
      $db=null;
    }else{
     echo "<script languaje='javascript'>alert('Error');</script>";
@@ -649,7 +728,7 @@ $consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restau
 function mostrarTablaPedidos(){
 $db = conecta();
 $id_solicitud=intval($_POST['id_solicitud']);
-$consulta = "SELECT DISTINCT ds.cantidad,r.id_restaurant,r.nombre_restaurant, p.nombre_plato,p.precio,s.total_cuenta, c.id_cliente from sistema_restaurant.tbl_solicitud s, sistema_restaurant.tbl_restaurant r, sistema_restaurant.tbl_plato p, sistema_restaurant.tbl_detalle_solicitud ds, sistema_restaurant.tbl_cliente c
+$consulta = "SELECT DISTINCT ds.cantidad,r.id_restaurant,r.nombre_restaurant,p.id_plato, p.nombre_plato,p.precio,p.estado_plato,s.total_cuenta, c.id_cliente, s.cantidad_total from tbl_solicitud s, tbl_restaurant r, tbl_plato p, tbl_detalle_solicitud ds, tbl_cliente c
   where s.id_solicitud=:id_solicitud and s.id_solicitud=ds.id_solicitud and ds.id_plato=p.id_plato and r.id_restaurant=s.id_restaurant and s.id_cliente=c.id_cliente";
 $resultado= $db->prepare($consulta);
 $resultado-> bindParam(":id_solicitud", $id_solicitud, PDO::PARAM_INT);
@@ -657,35 +736,57 @@ $resultado-> bindParam(":id_solicitud", $id_solicitud, PDO::PARAM_INT);
     $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
    
     echo'
-         <p>* Si tu pedido tiene diferentes platos podría tener un retraso de 5 a 10 minutos</p></br>
+         <p>* Si tu pedido tiene diferentes platos podría tener un retraso de 5 a 10 minutos</p>
+         <p>* Sólo si todos los platos están disponibles aparecerá el botón para realizar el pedido nuevamente</p><br>
          <h3 align="center">Detalle del pedido</h3>
           <div class="table-responsive">
              <table class="table table-bordered table-inverse">
                 <tr class="bg-primary">
               <td align="center">Cantidad</td>
               <td align="center">Plato</td>
-              <td align="center">Precio(c/u)</td>               
+              <td align="center">Precio(c/u)</td>                          
               </tr>'; 
-    foreach ($rows as $row2) {
-      $total=$row2['total_cuenta'];
-      $id_restaurant=$row2['id_restaurant'];
-      $nombre_restaurant=$row2['nombre_restaurant'];
-
-       echo ' <tr class="bg-danger">
-                <td> '.$row2['cantidad'].'</td>
-                <td> '.$row2['nombre_plato'].' </td>
-                <td align="right">$ '.$row2['precio'].' </td>
-              </tr> ';
-                               
-    } 
-   // $consultaValoracion="SELECT * from sistema_restaurant.tbl_calificación_restorant ";
+              $habilitados="true";
+               $contiene = array();
+             if(isset($_SESSION['id_cliente'])) $id_cliente=$_SESSION['id_cliente'];
+            foreach ($rows as $row2) {
+              $total=$row2['total_cuenta'];
+              $id_restaurant=$row2['id_restaurant'];
+              $nombre_restaurant=$row2['nombre_restaurant'];
+              $cantidad_platos=(int)($row2['cantidad_total']);
+             
+               $contiene[] =array("cantidad"=>$row2['cantidad'],"id_plato"=>$row2['id_plato'],"precio"=>($row2['cantidad'] * $row2['precio']));
+               echo ' <tr class="bg-danger">
+                        <td align="right"> '.$row2['cantidad'].'</td>
+                        <td align="center"> '.$row2['nombre_plato'].' </td>
+                        <td align="right">$ '.$row2['precio'].' </td>';   
+                echo '</tr> ';
+                 if($row2['estado_plato']==2 || $row2['estado_plato']==3) $habilitados="false";                 
+            } 
+    
           echo' <tr class="bg-primary">
                   <th align="center" >TOTAL</th>
                   <td align="center"><a class="comentar" href="evaluarRestaurant.php?id_restaurant='.$id_restaurant.'&nombre_restaurant='.$nombre_restaurant.'" data-toggle="modal">Evaluar Restaurant</a></td>
-                  <td align="right">$ '.$total.'</td>                
+                  <td align="right">$ '.$total.'</td>                                 
                 </tr>
              </table>
           </div> ';
+          if($habilitados=="true"){
+  echo   '<form action="pedidos.php" method="post" class="form-horizontal" name="form" >
+          <input type="hidden" name="total_pago" value="'.$total.'">
+          <input type="hidden" name="id_cliente" value="'.$id_cliente.'">
+          <input type="hidden" name="id_restaurant" value="'.$id_restaurant.'">
+          <input type="hidden" name="cantidad_platos" value="'.$cantidad_platos.'">   
+          <input type="hidden" name="datos" value="'.base64_encode(serialize($contiene)).'">
+          <div class="form-group">
+                <label class="col-md-4 col-xs-3 control-label " for="pago"></label>
+            <div class="col-md-6 col-xs-6 col-sm-7 ">
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+               <button type="submit" name="repetir" class="btn btn-primary" >PEDIR NUEVAMENTE</button>
+            </div>
+          </div>    
+          </form> ';
+          }
   $db = null;  
   
 } 
@@ -694,7 +795,7 @@ $resultado-> bindParam(":id_solicitud", $id_solicitud, PDO::PARAM_INT);
 
 $db = conecta();
 
-$insert="INSERT into sistema_restaurant.tbl_calificacion_restorant(comentario,estrellas,id_cliente,id_restaurant)
+$insert="INSERT into tbl_calificacion_restorant(comentario,estrellas,id_cliente,id_restaurant)
     values(:comentario,:estrellas,:id_cliente,:id_restaurant)";
 $resultado= $db->prepare($insert);
  if ($resultado->execute(array(":comentario" => $comentario,
@@ -717,7 +818,7 @@ function mostrarComentarios($id_restaurant){
 
   $db = conecta();
 
-  $consulta="SELECT cr.comentario,cr.estrellas,cr.fecha_calificacion,c.nombre_cliente,c.apellido_cliente from sistema_restaurant.tbl_calificacion_restorant cr,sistema_restaurant.tbl_cliente c
+  $consulta="SELECT cr.comentario,cr.estrellas,cr.fecha_calificacion,c.nombre_cliente,c.apellido_cliente from tbl_calificacion_restorant cr,tbl_cliente c
    where cr.id_restaurant=:id_restaurant and cr.id_cliente=c.id_cliente";
   $resultado= $db->prepare($consulta);
   if($resultado->execute(array(":id_restaurant"=>$id_restaurant)) && $resultado->rowCount()>0){

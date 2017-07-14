@@ -54,7 +54,7 @@ return false;
 	<div class="banner about-w3bnr">
 		<!-- header -->
     <?php include('inc/navlogin.php'); ?>
-    <?php include('inc/navheader.php'); ?>
+    
 		<!-- //header-end -->
 		<!-- banner-text -->
 		<div class="banner-text">
@@ -107,29 +107,10 @@ return false;
 	<!-- //subscribe -->
 	<!-- footer -->
 
-	<div class="copyw3-agile">
-		<div class="container">
-			<p>&copy; 2017 Staple Food. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-		</div>
-	</div>
+	<?php include('inc/footer.php'); ?>
 	<!-- //footer -->
 	<!-- cart-js -->
-	<script src="js/minicart.js"></script>
-	<script>
-        w3ls.render();
-
-        w3ls.cart.on('w3sb_checkout', function (evt) {
-        	var items, len, i;
-
-        	if (this.subtotal() > 0) {
-        		items = this.items();
-
-        		for (i = 0, len = items.length; i < len; i++) {
-        		}
-        	}
-        });
-    </script>
-	<!-- //cart-js -->
+	
 	<!-- start-smooth-scrolling -->
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>

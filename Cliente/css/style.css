@@ -132,7 +132,7 @@ li.w3pages .dropdown-menu > li > a {
 li.w3pages ul.dropdown-menu {
     left: 3%;
     padding: 10px 0;
-    min-width: 120px;
+    min-width: 200px;
 }
 li.w3pages .dropdown-menu > li > a:hover,li.w3pages .dropdown-menu > li > a.active{
     color: #000; 
@@ -1788,7 +1788,7 @@ p.single-price-text {
 /*-- //about --*/
 /*-- contact --*/ 
 .contact-grid {
-    background-color: #08cae2;
+    background-color: #fd463e;
     padding: 3.5em;
 }
 .contact-row.agileits-w3layouts { 

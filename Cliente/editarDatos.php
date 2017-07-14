@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +13,7 @@
 <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 <link href="css/style.css" type="text/css" rel="stylesheet" media="all">  
 <link href="css/font-awesome.css" rel="stylesheet"> <!-- font-awesome icons --> 
-<link rel="stylesheet" href="css/owl.carousel.css" type="text/css" media="all"/> <!-- Owl-Carousel-CSS -->
+
 <!-- //Custom Theme files --> 
 <!-- js -->
 <script src="js/jquery-2.2.3.min.js"></script>  
@@ -24,7 +27,7 @@
 	<div class="banner about-w3bnr">
 		<!-- header -->
 		<div class="header">
-			<?php include('inc/navlogin.php'); ?>
+			
 			<?php include('inc/navheader.php'); ?>
 		</div>
 		<!-- //header-end --> 
@@ -44,15 +47,11 @@
 	<?php
 	include ('inc/claseCliente.php'); 
 	$mostrar = new claseCliente();
-	$id_cliente=2;
+	$id_cliente=$_SESSION['id_cliente'];
 	$mostrar->mostrarDatosPerfil($id_cliente);
 	?>
 	
-	<div class="copyw3-agile"> 
-		<div class="container">
-			<p>&copy; 2017 Staple Food. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-		</div>
-	</div>
+	<?php include('inc/footer.php'); ?>
 	<!-- //footer -->   
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>
@@ -71,19 +70,7 @@
         });
     </script>  
 	<!-- //cart-js --> 
-	<!-- Owl-Carousel-JavaScript -->
-	<script src="js/owl.carousel.js"></script>
-	<script>
-		$(document).ready(function() {
-			$("#owl-demo").owlCarousel ({
-				items : 3,
-				lazyLoad : true,
-				autoPlay : true,
-				pagination : true,
-			});
-		});
-	</script>
-	<!-- //Owl-Carousel-JavaScript -->  	
+	 	
 	<!-- the jScrollPane script -->
 	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
 	<script type="text/javascript" id="sourcecode">
@@ -129,6 +116,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/ajax_previa.js"></script>   
+       
 </body>
 </html>

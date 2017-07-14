@@ -11,7 +11,7 @@
 <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
 <link href="css/estrellas.css" type="text/css" rel="stylesheet" media="all">  
 <link href="css/font-awesome.css" rel="stylesheet"> <!-- font-awesome icons --> 
-<link rel="stylesheet" href="css/owl.carousel.css" type="text/css" media="all"/> <!-- Owl-Carousel-CSS -->
+
 <!-- //Custom Theme files --> 
 <!-- js -->
 <script src="js/jquery-2.2.3.min.js"></script>  
@@ -38,7 +38,7 @@
 	<div class="banner about-w3bnr">
 		<!-- header -->
 		<div class="header">
-			<?php include('inc/navlogin.php'); ?>
+			
 			<?php include('inc/navheader.php'); ?>
 		</div>
 		<!-- //header-end --> 
@@ -83,7 +83,6 @@
 		<div id="container-main">
 			<h3 class="w3ls-title w3ls-title1">Evaluación</h3> 
 			<div class="col-md-3 col-sm-3">
-				<!--<label class="radio-inline"><input type="radio" name="optradio" >Tarjeta de crédito</label> -->
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="contact-grid agileits">
@@ -111,7 +110,7 @@
 									</h2>
 								</div>
 								<noscript>Necesitas tener habilitado javascript para poder evaluar</noscript>
-							<!--<input type="hidden" name="estrellas" required="">							 -->
+												 
 							<textarea maxlength="250" name="opinion" placeholder="Tu opinión" required=""></textarea>
 							<div style="text-align:center;">
 							<input type="submit" value="Enviar" name="valorar">
@@ -122,11 +121,7 @@
 			<div class="clearfix"> </div>
 		</div>	
 	</div>	 
-	<div class="copyw3-agile"> 
-		<div class="container">
-			<p>&copy; 2017 Staple Food. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-		</div>
-	</div>
+	<?php include('inc/footer.php'); ?>
 	<!-- //footer -->   
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>
