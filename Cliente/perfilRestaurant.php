@@ -68,7 +68,7 @@ session_start();
 			<div class="spldishes-agileinfo">
 				<div class="col-md-12 spldishes-grids">
 					<!-- Owl-Carousel -->
-					<div id="owl-demo" class="owl-carousel text-center agileinfo-gallery-row" style="background-image: url('images/fondo.png'); background-size: cover;">
+					<div id="owl-demo" class="owl-carousel text-center agileinfo-gallery-row" style="background-image: url('images/fondo-rojo.jpg'); background-size: cover;">
 						<?php 
 							//$obj2 = new claseCliente();
 						echo $obj->mostrarComentarios($id_restaurant);

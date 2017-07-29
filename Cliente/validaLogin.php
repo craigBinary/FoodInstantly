@@ -11,11 +11,9 @@
         
         if($obj->validaLoginCliente($_POST['username'],$pass)){
             $_SESSION['username']=$_POST['username'];
-            $_SESSION['contraseña']=$_POST['password'];
-            $SESSION['entro']=true;
+            $_SESSION['contraseña']=$_POST['password'];            
 			header('Location: index.php');
-           //   echo"<script>    window.location.href='index.php';</script>";
-                 
+          
     		}else{
                 $SESSION['entro']=false;
     		echo"<script>

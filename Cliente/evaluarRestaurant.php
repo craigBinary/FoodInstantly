@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -87,7 +90,7 @@
 			<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="contact-grid agileits">
 						<?php $id_restaurant=$_GET['id_restaurant'];
-							  $id_cliente=2;	
+							  $id_cliente=$_SESSION['id_cliente'];	
 						 ?>
 						<h4 align="center"><?php echo $_GET['nombre_restaurant']; ?> </h4>
 

@@ -47,6 +47,11 @@ alert("Para registrarte debes aceptar los términos");
 return false;
 }
 }
+
+function justNumbers(e){
+	var key = window.Event ? e.which : e.keyCode
+	return ((key >= 48 && key <= 57) || (key==8)) 
+}
 </script>
 </head>
 <body>
@@ -81,7 +86,7 @@ return false;
 				<form action="validaRegistro.php" method="post" name="form" onsubmit="return validar(document.form);">
 				  <input class="agile-ltext" type="text" name="nombre" placeholder="Nombre" required="">
 		          <input class="agile-ltext" type="text" name="apellido" placeholder="Apellido" required="">
-		          <input class="agile-ltext" type="text" name="celular" placeholder="Celular" required="">
+		          <input class="agile-ltext" type="text" name="celular" onkeypress="return justNumbers(event);" placeholder="Celular" required="">
 		          <input class="agile-ltext" type="text" name="Username" placeholder="Nombre de usuario" required="">
 		          <input class="agile-ltext" type="email" name="mail" placeholder="Correo electrónico" required="">
 				  <input class="agile-ltext" type="password" name="password" id="password" placeholder="Contraseña" required="">

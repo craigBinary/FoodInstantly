@@ -69,11 +69,9 @@ session_start();
 					<div class="wthreelogin-text">
 						<ul>
 							<li>
-								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>
-									<span> Recordar</span>
-								</label>
+								
 							</li>
-							<li><a href="#">Olvidaste la contraseña? pincha aquí</a> </li>
+							<li> </li>
 						</ul>
 						<div class="clearfix"> </div>
 					</div>

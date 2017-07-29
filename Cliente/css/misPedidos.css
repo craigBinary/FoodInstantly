@@ -24,18 +24,20 @@ body{
     position: relative;
     display: block;
     padding: 20px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 300;
-    background: #2c3e50;
+    background: rgba(253, 70, 62, 0.84);
     color: #fff;
     text-decoration: none;
+    border:solid;
 }
 .accordion-titulo.open {
-    background: #16a085;
+    background: #008080;
     color: #fff;
 }
 .accordion-titulo:hover {
-    background: #1abc9c;
+    background: #008080;
+    color: #fff;
 }
 
 .accordion-titulo span.toggle-icon:before {

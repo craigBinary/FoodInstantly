@@ -24,6 +24,7 @@ try{
 	        $id_solicitud=$db->lastInsertId();
 	         echo "<script languaje='javascript'>alert('Su Solicitud ha sido enviada');</script>";
 	 	}else{
+	 		 echo "<script languaje='javascript'>alert('Hubo un problema con la solicitud,intente nuevamente.');</script>";
 	 		return false;
 	 	}	
 
@@ -39,11 +40,11 @@ try{
 			$resultado_detalle=$db->prepare($insert_detalle);
 	 	    if($resultado_detalle->execute(array(":cantidad"=>$cantidad,":id_plato"=>$id_plato,":precio"=>$precio,":id_solicitud"=>$id_solicitud)) && $resultado_detalle->rowCount()>0 ){
 	 		
-	        echo "se incertó el detalle";
+	        
 	        
 	 	    }else{
-	 	    	
-	 		echo "guatio insert detalle";
+	 	    	return false;
+	 		
 	 	    }	
 			
 		} 

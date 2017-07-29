@@ -2061,7 +2061,7 @@ p.single-price-text {
 .login-page img.login-w3img {
     position: absolute;
     right: 0%;
-    top: 3%; 
+    top: 0%; 
 }
 /*-- //login --*/
 /*-- offers --*/
@@ -2264,7 +2264,7 @@ section#tables  p {
 }
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 	font-size: 0.9em;
-	color: #999;
+	color: #fff;
 	border-top: none !important;
 }
 .tab-content > .active {

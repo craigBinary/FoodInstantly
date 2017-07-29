@@ -17,9 +17,6 @@ if(isset($_POST['registrar'])){ // determina si una variable ha sido declarada y
 
     	  $pass= md5($pass);
 
-
-      /*  $msg="prueba";
-        $objeto2->error_log($msg); */
           if($objeto2-> registroUsuario($nombreUsuario,$apellidoUsuario,$celular,$usuario,$mail,$pass)){
             header('Location: index.php');
           }

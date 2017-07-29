@@ -10,6 +10,7 @@ if(isset($_POST['valorar'])){
 
 		$obj= new claseCliente();
 		if($obj->insertOpinion($id_cliente,$id_restaurant,$comentario,$estrellas)){
+			$obj->updateEstrellas($id_restaurant);
 			echo"<script>
     		alert('Muchas gracias por su opinión');
     		window.location.href='misPedidos.php';

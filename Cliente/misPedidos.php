@@ -58,8 +58,7 @@ session_start();
 					$(".accordion-content").slideUp(250);	       
 		         	contenido.slideDown(250);         
 		         	$(this).addClass("open");
-		        }
-		        else{ //close       
+		        }else{ //close       
 		          contenido.slideUp(250);
 		          $(this).removeClass("open");  
 		        }

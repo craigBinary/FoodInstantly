@@ -12,10 +12,12 @@ if(isset($_POST['editarDatos'])){ // determina si una variable ha sido declarada
       $objeto2 = new claseCliente();
        
           if($objeto2->updDatosCliente($id_cliente,$nombreUsuario,$apellidoUsuario,$celular,$mail)){
-            echo "<script languaje='javascript'>alert('Todo bien'); </script>  ";
-            header('Location: index.php');
+           echo "<script languaje='javascript'>alert('Datos actualizados correctamente.');
+                    window.location.href='index.php'; </script>";           
           }else{
-            echo "<script languaje='javascript'>alert('Error'); </script>";
+            echo "<script languaje='javascript'>alert('Hubo un problema.');
+                    window.location.href='editarDatos.php'; </script>";
+
           }
 
       }

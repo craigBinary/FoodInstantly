@@ -2,6 +2,19 @@
 session_start();
 
 extract($_POST,EXTR_PREFIX_SAME,"hacerPedido");
+function toMoney($val,$symbol='$',$r=0)
+{
+    $n = $val; 
+    $c = is_float($n) ? 1 : number_format($n,$r);
+    $d = '.';
+    $t = ',';
+    $sign = ($n < 0) ? '-' : '';
+    $i = $n=number_format(abs($n),$r); 
+    $j = (($j = strlen($i)) > 2) ? $j % 2 : 0; 
+
+   return  $symbol.$sign .($j ? substr($i,0, $j) + $t : '').preg_replace('/(\d{3})(?=\d)/',"$1" + $t,substr($i,$j)) ;
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,12 +36,34 @@ extract($_POST,EXTR_PREFIX_SAME,"hacerPedido");
           window.location.href='index.php';
         }
 
-        function eliminar(){
-
-        	$("#staplesbmincart").empty();
-        	//$(".sbmincart-item sbmincart-item-changed").empty();
-			
-        }   
+       function validar(){
+		
+		 if ($('input[name="pago"]').is(':checked')) {		 	
+		 	var pago = $('input:radio[name=pago]:checked').val();		 	
+			 if (pago == 1){			 	
+			 	numero=document.getElementById("numero_tarjeta").value;
+			 	mes=document.getElementById("mes").value;
+			 	año=document.getElementById("año").value;
+			 	cod=document.getElementById("cod_verificación").value;
+			 	if(numero=="" | mes=="" | año=="" | cod==""){
+			 	 alert("Debes completar todos los campos.");
+		   		 return false;
+			 	}
+			 	return true;
+			 }else{			 	
+			 	emi=document.getElementById("sel_emisor").value;
+			 	rut=document.getElementById("rut_tarjeta").value;			 	
+			 	if(emi=="" | rut==""){
+			 	 alert("Debes completar todos los campos.");
+		   		 return false;
+			 	}
+			 	return true;
+			 }		    
+		 }else{
+			alert("Debes seleccionar un medio de pago.");
+		    return false;
+			}
+		}
 
         function pagoOnChange(radio) {
 		      if (radio.value == 1){
@@ -63,9 +98,9 @@ extract($_POST,EXTR_PREFIX_SAME,"hacerPedido");
 				<!--<label class="radio-inline"><input type="radio" name="optradio" >Tarjeta de crédito</label> -->
 			</div>
 			<div class="col-xs-8 col-sm-12 col-md-8">
-				<label class="radio-inline"><input type="radio" name="pago" value="1" onchange="pagoOnChange(this)"><b>Tarjeta de crédito</b></label>
+				<label class="radio-inline"><input type="radio" name="pago" id="pago"  value="1" onchange="pagoOnChange(this)"><b>Tarjeta de crédito</b></label>
 					 <img src="img/ico-visa.png" class="img-rounded" alt="Cinque Terre"> 
-				<label class="radio-inline"><input type="radio" name="pago" value="2" onchange="pagoOnChange(this)"><b>Redcompra</b></label>
+				<label class="radio-inline"><input type="radio" name="pago" id="pago" value="2" onchange="pagoOnChange(this)"><b>Redcompra</b></label>
 				<img src="img/ico-redcompra.png" class="img-rounded" alt="Cinque Terre"> 
 			</div>			
 		</div>
@@ -187,14 +222,14 @@ extract($_POST,EXTR_PREFIX_SAME,"hacerPedido");
 			<div class="form-group">
 			  <label class="col-md-4 control-label" for="RUT">Ingrese RUT:</label>  
 			  <div class="col-md-4">
-			  <input id="rut_tarjeta" type="text"  class="form-control input-md" required="true">			    
+			  <input type="text" id="rut_tarjeta" class="form-control input-md" required>			    
 			  </div>
 			</div>
 			
 		</div>
 		</form>
 		<h1>&nbsp;</h1>
-		<form action="pago.php" method="post" class="form-horizontal" name="form" onsubmit="return eliminar(document.form);">
+		<form action="pago.php" method="post" class="form-horizontal" name="form" onsubmit="return validar(document.form);">
 		<input type="hidden" name="total_pago" value="<?php echo $total_pago ?>">
 		<input type="hidden" name="id_cliente" value="<?php echo $id_cliente ?>">
 		<input type="hidden" name="id_restaurant" value="<?php echo $id_restaurant ?>">
@@ -250,62 +285,9 @@ extract($_POST,EXTR_PREFIX_SAME,"hacerPedido");
 
 <?php
  
-
 //$quantity -> cantidad de platos
 //$w3ls_item -> nombre del plato
 //$amount -> precio del plato 
 //$total -> monto total a pagar
 //$cantidad_platos -> cantidad total de platos
- 
- //if(isset($_POST['pagar'])){ 
-//$id_restaurant=(int)($_POST['id_restaurant']);
-//$id_restaurant=	$id_restaurant);
-
- 	
- 	 
- 	
-/*
- 	 $db = conecta();
- 	 $id_cliente=$_SESSION['id_cliente'];
- 	 $estado_solicitud='pagado';  
- 	$insert = "insert INTO bd_restorant.tbl_solicitud (id_solicitud,id_cliente,id_restaurant,fecha_hora, total_cuenta, cantidad, estado_solicitud) VALUES
- 	 (NULL,:id_cliente, :id_restaurant, NULL, :total_pago, :cantidad_platos, :estado_solicitud) ";
-
- 	$resultado=$db->prepare($insert);
- 	if($resultado->execute(array(":id_cliente"=>$id_cliente,":id_restaurant"=>$id_restaurant,":total_pago"=>$total_pago,":cantidad_platos"=>$cantidad_platos,":estado_solicitud"=>$estado_solicitud)) && $resultado->rowCount()>0 ){
- 		
-        $id_solicitud=$db->lastInsertId();
-        
- 	}else{
- 		echo "Guatio affected row";
- 	}	
-
- 	for($j=1; $j <= $filas; $j++){
-	
-	echo "<br>";	
-	$contiene[] =array("cantidad"=>$quantity[$j],"id_plato"=>$id_plato[$j],"precio"=>($quantity[$j] * $amount[$j]),"id_solicitud"=>$id_solicitud);
- 		
- 	}
- 	print_r($contiene);
-
- 	foreach ($contiene as $dato){
-
-		$cantidad = $dato["cantidad"];		
-		$id_plato = $dato["id_plato"];		
-		$precio = $dato["precio"];
-		$id_solicitud = $dato["id_solicitud"];
-
-		$insert_detalle = "insert INTO bd_restorant.tbl_detalle_solicitud (id_detalle_solicitud, cantidad, precio, id_plato, id_solicitud) VALUES (NULL, :cantidad ,:precio, :id_plato ,:id_solicitud)";
-		$resultado_detalle=$db->prepare($insert_detalle);
- 	    if($resultado_detalle->execute(array(":cantidad"=>$cantidad,":id_plato"=>$id_plato,":precio"=>$precio,":id_solicitud"=>$id_solicitud)) && $resultado_detalle->rowCount()>0 ){
- 		echo "<br>";
-        echo "se incertó el detalle";
-        
- 	    }else{
- 	    	echo "<br>";
- 		echo "guatio insert detalle";
- 	    }	
-		
-	} */
-//}
-?>
+ ?>
