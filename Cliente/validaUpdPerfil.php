@@ -1,5 +1,6 @@
 <?php
 include('inc/claseCliente.php');
+include('seguridad.php');
 
 if(isset($_POST['editarDatos'])){ // determina si una variable ha sido declarada y su valor no es NULO
  if(!empty($_POST['id_cliente']) && !empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['celular']) && !empty($_POST['mail'])){

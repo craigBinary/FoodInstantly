@@ -7,7 +7,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title>Registrarse</title>
+<title>Registro</title>
+<link rel="shortcut icon" type="image/x-icon" href="img/ico.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -64,7 +65,7 @@ function justNumbers(e){
 		<!-- banner-text -->
 		<div class="banner-text">
 			<div class="container">
-				<h2>Delicious food from the <br> <span>Best Chefs For you.</span></h2>
+				<h2>Ahorra tiempo haciendo tu pedido <br> <span>llegar y comer!</span></h2>
 			</div>
 		</div>
 	</div>
@@ -87,11 +88,10 @@ function justNumbers(e){
 				  <input class="agile-ltext" type="text" name="nombre" placeholder="Nombre" required="">
 		          <input class="agile-ltext" type="text" name="apellido" placeholder="Apellido" required="">
 		          <input class="agile-ltext" type="text" name="celular" onkeypress="return justNumbers(event);" placeholder="Celular" required="">
-		          <input class="agile-ltext" type="text" name="Username" placeholder="Nombre de usuario" required="">
 		          <input class="agile-ltext" type="email" name="mail" placeholder="Correo electrónico" required="">
+		          <input class="agile-ltext" type="text" name="Username" placeholder="Nombre de usuario" required="">		          
 				  <input class="agile-ltext" type="password" name="password" id="password" placeholder="Contraseña" required="">
           		  <input class="agile-ltext" type="password" name="password2" id="password2" placeholder="Confirme contraseña" required="">
-
 					<div class="wthreelogin-text">
 						<ul>
 							<li>

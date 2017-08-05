@@ -1,7 +1,7 @@
 <?php
 
 include('inc/conecta.php');
-
+include('seguridad.php');
 try{
 	if(isset($_POST['pagar'])){
 		if(!empty($_POST['id_restaurant']) && !empty($_POST['id_cliente']) && !empty($_POST['cantidad_platos']) && !empty($_POST['total_pago']) && !empty($_POST['datos'])){
@@ -10,11 +10,19 @@ try{
 	    $cantidad_platos=$_POST['cantidad_platos'];
 	    $total_pago=$_POST['total_pago'];
 
-		
-
 	 	 $db = conecta();
-	 	
+	 	$query="Select hora_apertura,hora_cierre from tbl_restaurant where CURTIME() between hora_apertura and hora_cierre 
+	 	and id_restaurant=:id_restaurant";
+	 	$consulta=$db->prepare($query);
+	 	if($consulta->execute(array(":id_restaurant"=>$id_restaurant)) && $consulta->rowCount()>0 ){
+	 		$proceda=true;
+	 	}else{
+	 		$proceda=false;
+	 	}	
+
+	 	if($proceda){
 	 	 $estado_solicitud='pagado';  
+	 	
 	 	$insert = "insert INTO tbl_solicitud (id_solicitud,id_cliente,id_restaurant,fecha_hora, total_cuenta, cantidad_total, estado_solicitud) VALUES
 	 	 (NULL,:id_cliente, :id_restaurant, NULL, :total_pago, :cantidad_platos, :estado_solicitud) ";
 
@@ -50,10 +58,16 @@ try{
 		} 
 
 		echo"<script>	
-    		window.location.href='misPedidos.php';
+    		window.location.href='misPedidos.php?limpiar=true';
+    		</script>";
+	  }else{
+	  	echo "<script languaje='javascript'>alert('Estimado cliente, su solicitud no puede ser procesada ya que el restaurant no atiende solicitudes fuera de horario.');</script>";
+	  	 echo"<script>	
+    		window.location.href='index.php';
     		</script>";
 	  }
-	}
+	 }
+   }	
  }catch(PDOException $e){
         die('Ups, hay problemas con la solicitud');
         echo"<script>	

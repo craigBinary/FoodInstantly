@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    include('seguridad.php');
 	include ('inc/claseCliente.php');
     
 	$obj=new claseCliente();
@@ -11,17 +11,26 @@
         
         if($obj->validaLoginCliente($_POST['username'],$pass)){
             $_SESSION['username']=$_POST['username'];
-            $_SESSION['contraseña']=$_POST['password'];            
-			header('Location: index.php');
+            $_SESSION['contraseña']=$_POST['password']; 
+            if(isset($_POST['id_restaurant'])){
+                    header('Location: productos.php?id_restaurant='.$_POST["id_restaurant"].'');
+            }else{
+                    header('Location: index.php');
+            }  
           
-    		}else{
-                $SESSION['entro']=false;
-    		echo"<script>
-    		alert('Error en usuario y/o contraseña');
-    		window.location.href='login.php';
-    		</script>";
-
-    		}
+    	}else{
+            if(isset($_POST['id_restaurant'])){  
+        		echo'<script>
+        		alert("Error en usuario y/o contraseña");
+        		window.location.href="login.php?id_restaurant='.$_POST["id_restaurant"].'";
+        		</script>';
+            }else{
+                echo"<script>
+                alert('Error en usuario y/o contraseña');
+                window.location.href='login.php';
+                </script>";    
+            }
+    	}
 	  }
     }
 ?>

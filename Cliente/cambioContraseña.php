@@ -1,10 +1,11 @@
 <?php
-session_start();
+include('seguridad.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <title>Cambio De Contraseña</title>
+<link rel="shortcut icon" type="image/x-icon" href="img/ico.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -36,7 +37,7 @@ session_start();
 		<!-- banner-text -->
 		<div class="banner-text">	
 			<div class="container">
-				<h2>Delicious food from the <br> <span>Best Chefs For you.</span></h2> 
+				<h2>Ahorra tiempo haciendo tu pedido <br> <span>llegar y comer!</span></h2>
 			</div>
 		</div>
 	</div>

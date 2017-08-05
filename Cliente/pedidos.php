@@ -1,20 +1,6 @@
 <?php
-session_start();
-
+include('seguridad.php');
 extract($_POST,EXTR_PREFIX_SAME,"hacerPedido");
-function toMoney($val,$symbol='$',$r=0)
-{
-    $n = $val; 
-    $c = is_float($n) ? 1 : number_format($n,$r);
-    $d = '.';
-    $t = ',';
-    $sign = ($n < 0) ? '-' : '';
-    $i = $n=number_format(abs($n),$r); 
-    $j = (($j = strlen($i)) > 2) ? $j % 2 : 0; 
-
-   return  $symbol.$sign .($j ? substr($i,0, $j) + $t : '').preg_replace('/(\d{3})(?=\d)/',"$1" + $t,substr($i,$j)) ;
-
-}
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +10,7 @@ function toMoney($val,$symbol='$',$r=0)
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pago</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/ico.png" />
     <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
     <link href="css/style.css" type="text/css" rel="stylesheet" media="all">  
     <!-- Bootstrap -->
@@ -245,7 +232,7 @@ function toMoney($val,$symbol='$',$r=0)
 		<div class="form-group">
 		      <label class="col-md-4 col-xs-3 control-label " for="pago"></label>
 		  <div class="col-md-5 col-xs-12 col-sm-6 ">
-		      <button type="button" id="volver" class="btn btn-primary" onClick="cancelar()">Cancelar Pago</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		      <button type="button" id="volver" class="btn btn-primary" onclick="window.history.back();">Cancelar Pago</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		      <button type="submit" id="pagar" name="pagar" class="btn btn-primary" value="Submit">Pagar Pedido</button>
 		  </div>
 		</div>		

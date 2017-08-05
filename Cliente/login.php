@@ -1,16 +1,11 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <?php
-session_start();
+//session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <title>Login</title>
+<link rel="shortcut icon" type="image/x-icon" href="img/ico.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -32,36 +27,31 @@ session_start();
 	<div class="banner about-w3bnr">
 		<!-- header -->
 		<div class="header">
-			<?php include('inc/navlogin.php'); ?>
-			<!-- //header-one -->
-			<!-- navigation -->
-
-			<!-- //navigation -->
+			<?php include('inc/navlogin.php'); ?>			
 		</div>
-		<!-- //header-end -->
-		<!-- banner-text -->
 		<div class="banner-text">
 			<div class="container">
-				<h2>Delicious food from the <br> <span>Best Chefs For you.</span></h2>
+				<h2>Ahorra tiempo haciendo tu pedido <br> <span>llegar y comer!</span></h2>
 			</div>
 		</div>
 	</div>
-	<!-- //banner -->
-	<!-- breadcrumb -->
 	<div class="container">
 		<ol class="breadcrumb w3l-crumbs">
 			<li><a href="index.php"><i class="fa fa-home"></i> Home</a></li>
 			<li class="active">Login</li>
 		</ol>
 	</div>
-	<!-- //breadcrumb -->
-	<!-- login-page -->
 	<div class="login-page about">
 		<img class="login-w3img" src="images/img3.jpg" alt="">
 		<div class="container">
 			<h3 class="w3ls-title w3ls-title1">Inicio de sesión</h3>
 			<div class="login-agileinfo">
 				<form action="validaLogin.php" method="post">
+				 	<?php
+				 		if(isset($_GET['id_restaurant'])){
+				 		echo '<input type="hidden" name="id_restaurant" value="'.$_GET['id_restaurant'].'">';
+				 		}
+				 	?>
 					
 					<input class="agile-ltext" type="text" name="username" placeholder="Usuario" required="">
 					<input class="agile-ltext" type="password" name="password" placeholder="Contraseña" required=""> 
@@ -80,9 +70,8 @@ session_start();
 				<p>No tienes una cuenta? <a href="signup.php"> Registrarse aquí!</a></p>
 			</div>
 		</div>
-	</div>
-	<!-- //login-page -->
-				<div class="clearfix"> </div>
+	</div>	
+		<div class="clearfix"> </div>
 	<?php include('inc/footer.php'); ?>
 	<!-- //footer -->
 	<!-- cart-js -->

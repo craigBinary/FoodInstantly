@@ -1,8 +1,5 @@
 <div class="w3ls-header"><!-- header-one -->
-  <div class="container">
-    <div class="w3ls-header-left">
-      <p>Por si acaso</p>
-    </div>
+  <div class="container">    
     <div class="w3ls-header-right">
       <ul>        
         <li class="head-dpdn">

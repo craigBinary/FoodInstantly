@@ -2,10 +2,6 @@
 
 include('conecta.php');
  
-  
-/**
- *
- */
 class claseCliente{
 
 
@@ -41,18 +37,20 @@ function registroUsuario($nombreUsuario,$apellidoUsuario,$celular,$usuario,$mail
     $resultado = $db->prepare($insert);
      if ($resultado->execute(array(":nombreUsuario" => $nombreUsuario,
      ":apellidoUsuario" => $apellidoUsuario,":celular" => $celular, ":usuario" => $usuario,":mail" => $mail, ":pass" => $pass ))){
-
+     
        $db = null;
         return true;
     } else {
-       echo "<script languaje='javascript'>alert('ERROR:Usuario no se pudo registrar.'); </script>";
-       echo " header('Location: singup.php'); ";
+      echo "<script languaje='javascript'>alert('ERROR:Usuario no se pudo registrar.'); </script>";
+     echo"<script>               
+            window.location.href='singup.php';
+          </script>";
        $db = null;
         return false;
 
     }
   }else{
-    echo "<script languaje='javascript'>alert('ERROR: Nombre de usuario ya existe.'; </script>";
+    echo "<script languaje='javascript'>alert('ERROR: Nombre de usuario ya existe.'); </script>";    
     return false;
   }
       $db = null;
@@ -98,47 +96,6 @@ function cambiarContraseña($id_cliente,$contrasena){
 
 }
 
-/*
-function listarPlatos(){
-
-$db = conecta();
-
-$consulta = "select * from tbl_plato";
-$resultado= $db->prepare($consulta);
-$array= array();  
-if($resultado->execute() && $resultado->rowCount()>0){
-  $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
-  foreach ($rows as $row) {
-    $array= $row;
-    json_encode($array);
-  }
-return $array;
-}else{
-  echo "Error";
-}
-  
-} */
-/*
-function listarComunas(){
-
-$db = conecta();
-
-$consulta = "select * from tbl_comuna";
-$resultado= $db->prepare($consulta);
-$array= array();  
-if($resultado->execute() && $resultado->rowCount()>0){
-  $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
-  foreach ($rows as $row) {
-    $array[] = $row;
-    
-  }
-return json_encode($array);
-}else{
-  echo "Error";
-}
-  
-} */
-
 function listarComunas(){
 
       $devolver = "";
@@ -177,45 +134,6 @@ function listarRestaurant(){
       return str_replace("_"," ",$devolver);
 
 }
-/*
-function listarRestaurant(){
-
-$db = conecta();
-
-$consulta = "select * from tbl_restaurant";
-$resultado= $db->prepare($consulta);
-$local= array();  
-if($resultado->execute() && $resultado->rowCount()>0){
-  $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
-  foreach ($rows as $row) {
-    $local[] = $row;
-   
-  }
-return json_encode($local);
-}else{
-  echo "Error";
-}
-  
-} 
-
-function listarTipoPlato(){
-  $db = conecta();
-try {
-$consulta = "select * from tbl_tipo_plato";
-$resultado= $db->prepare($consulta);
-$resultado->execute();
-  $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
-  } catch(PDOException $ex) {
-          echo "Ocurrió un error<br>";
-          echo $ex->getMessage();
-          exit;
-            }
-   foreach ($rows as $row) {
-    echo '<div class="col-md-4 col-sm-4 col-xs-6 menu-w3lsgrids">
-          <a class="tipo_plato" id="'.$row['nombre_tipo'].'" href="productos.php">'.$row['nombre_tipo'].'</a></div>';
-    }
-  $db = null;
-} */
 
 
 function listarTipoPlato($id_restaurant){
@@ -242,84 +160,98 @@ $id_tipo="";
 function listarPlatos($id_restaurant){
 
   $db = conecta();
-
-  $consulta = "SELECT r.id_restaurant,tp.*, p.*,im.imagen_plato from tbl_restaurant r,tbl_plato p,tbl_tipo_plato tp,tbl_imagen_plato im where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1 and im.id_plato=p.id_plato
-  and p.id_tipo_plato=tp.id_tipo_plato ORDER BY p.precio ASC "; 
-  $resultado= $db->prepare($consulta);
-    
-  if($resultado->execute(array(":id_restaurant"=>$id_restaurant)) && $resultado->rowCount()>0){
-    $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
-    $count=0;
-    foreach ($rows as $row) {
-    echo '<div class="col-xs-6 col-sm-3 product-grids"> ';
-     echo   '<div class="flip-container">';
-     echo     '<div class="flipper agile-products">';  
-     echo       '<div class="front"> ';
-                  $rutaCompleta=$row['imagen_plato'];
-                  $ruta=substr($rutaCompleta,6);
-     echo         '<img src="'.$ruta.'" style="width: 640px; height:170px" class="img-responsive" alt=" " > ';
-     
-              if($count%2==0){
-                echo '<div class="agile-product-text"> '; 
-              }else{
-                echo '<div class="agile-product-text agile-product-text2 "> ';
-              }      
-              $nombrePlato=$row['nombre_plato'];
+  $query="Select hora_apertura,hora_cierre from tbl_restaurant where CURTIME() between hora_apertura and hora_cierre 
+    and id_restaurant=:id_restaurant";
+    $horario=$db->prepare($query);
+    if($horario->execute(array(":id_restaurant"=>$id_restaurant)) && $horario->rowCount()>0 ){
+      $proceda=true;
+    }else{
+      $proceda=false;
+    } 
+  if($proceda){  
+    $consulta = "SELECT r.id_restaurant,tp.*, p.*,im.imagen_plato from tbl_restaurant r,tbl_plato p,tbl_tipo_plato tp,tbl_imagen_plato im where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and p.estado_plato = 1 and 
+      im.id_plato=p.id_plato and p.id_tipo_plato=tp.id_tipo_plato ORDER BY p.precio ASC "; 
+    $resultado= $db->prepare($consulta);
+      
+    if($resultado->execute(array(":id_restaurant"=>$id_restaurant)) && $resultado->rowCount()>0){
+      $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+      $count=0;
+      foreach ($rows as $row) {
+      echo '<div class="col-xs-6 col-sm-3 product-grids"> ';
+       echo   '<div class="flip-container">';
+       echo     '<div class="flipper agile-products">';  
+       echo       '<div class="front"> ';
+                    $rutaCompleta=$row['imagen_plato'];
+                    $ruta=substr($rutaCompleta,6);
+       echo         '<img src="'.$ruta.'" style="width: 640px; height:170px" class="img-responsive" alt=" " > ';
+       
+                if($count%2==0){
+                  echo '<div class="agile-product-text"> '; 
+                }else{
+                  echo '<div class="agile-product-text agile-product-text2 "> ';
+                }      
+                $nombrePlato=$row['nombre_plato'];
+                if(strlen($nombrePlato)<=19){
+                   echo "<h5>".$nombrePlato."</h5>";
+                 }else{
+                  echo "<h5>".substr($row['nombre_plato'],0,15)."...</h5>";
+                 }          
+                 
+              echo "</div>
+                  </div> "; 
+              echo  '<div class="back">';
               if(strlen($nombrePlato)<=19){
-                 echo "<h5>".$nombrePlato."</h5>";
-               }else{
-                echo "<h5>".substr($row['nombre_plato'],0,15)."...</h5>";
-               }          
-               
-            echo "</div>
-                </div> "; 
-            echo  '<div class="back">';
-            if(strlen($nombrePlato)<=19){
-                 echo "<h4>".$nombrePlato."</h4>";
-               }else{
-                echo "<h4>".substr($row['nombre_plato'],0,15)."...</h4>";
-               } 
-                       
-            echo  "<p>"."Tiempo de preparacion:"." ".$row['tiempo_preparacion']." min."."</p>";
-                  if(isset($row['precio_oferta'])){
-                    echo  "<h6><sup>$</sup>".$row['precio_oferta']."</h6>";
-                  }else{
-            echo  "<h6><sup>$</sup>".$row['precio']."</h6>";
-                  }
-            echo    '<form action="#" method="post" name="form_platos" onSubmit="return false">
-                    <input type="hidden" name="id_restaurant" id="id_restaurant" value="'.$row['id_restaurant'].'" > 
-                    <input type="hidden" name="id_plato" id="id_plato" value="'.$row['id_plato'].'" > 
-                    <input type="hidden" name="cmd" value="_cart">
-                    <input type="hidden" name="add" value="1"> 
-                    <input type="hidden" name="w3ls_item" value="'.$row['nombre_plato'].'">';
-                    if(isset($row['precio_oferta'])){ 
-               echo ' <input type="hidden" name="amount" value="'.$row['precio_oferta'].'"> ';        
+                   echo "<h4>".$nombrePlato."</h4>";
+                 }else{
+                  echo "<h4>".substr($row['nombre_plato'],0,15)."...</h4>";
+                 } 
+                         
+              echo  "<p>"."Tiempo de preparacion:"." ".$row['tiempo_preparacion']." min."."</p>";
+                    if(isset($row['precio_oferta'])){
+                      echo  "<h6><sup>$</sup>".$row['precio_oferta']."</h6>";
                     }else{
-              echo ' <input type="hidden" name="amount" value="'.$row['precio'].'"> ';
+              echo  "<h6><sup>$</sup>".$row['precio']."</h6>";
                     }
-                   
-                    if(isset($_SESSION['id_cliente'])){
-                echo '<button type="submit" class="w3ls-cart pw3ls-cart"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Agregar</button>';
-                    }else{
-                echo ' <a href="login.php" >Iniciar sesión</a>  ';      
-                    }
-                echo '<span class="w3-agile-line"> </span>                    
-                    <a class="buscame" id="'.$row['id_plato'].'" href="#" data-toggle="modal" data-target="#myModal1">Más</a> 
-                  </form>
+              echo    '<form action="#" method="post" name="form_platos" onSubmit="return false">
+                      <input type="hidden" name="id_restaurant" id="id_restaurant" value="'.$row['id_restaurant'].'" > 
+                      <input type="hidden" name="id_plato" id="id_plato" value="'.$row['id_plato'].'" > 
+                      <input type="hidden" name="cmd" value="_cart">
+                      <input type="hidden" name="add" value="1"> 
+                      <input type="hidden" name="w3ls_item" value="'.$row['nombre_plato'].'">';
+                      if(isset($row['precio_oferta'])){ 
+                 echo ' <input type="hidden" name="amount" value="'.$row['precio_oferta'].'"> ';        
+                      }else{
+                echo ' <input type="hidden" name="amount" value="'.$row['precio'].'"> ';
+                      }
+                     
+                      if(isset($_SESSION['id_cliente'])){
+                  echo '<button type="submit" class="w3ls-cart pw3ls-cart"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Agregar</button>';
+                      }else{
+                  echo ' <a href="login.php?id_restaurant='.$_GET['id_restaurant'].'" >Iniciar sesión</a>  ';      
+                      }
+                  echo '<span class="w3-agile-line"> </span>                    
+                      <a class="buscame" id="'.$row['id_plato'].'" href="#" data-toggle="modal" data-target="#myModal1">Más</a> 
+                    </form>
+                  </div>
                 </div>
-              </div>
-            </div> 
-          </div>';
-      $count=$count+1;
+              </div> 
+            </div>';
+        $count=$count+1;
+      }
+      
+    }else{
+      
+       echo '<div class="col-xs-6 col-sm-4 product-grids"> ';
+       echo   '<div class="container">';
+       echo "<h5>No hay platos </h5>"; 
+      echo '</div>
+       </div>';
     }
-    
   }else{
-    echo "<script languaje='javascript'>alert('Error');</script>";
-     echo '<div class="col-xs-6 col-sm-4 product-grids"> ';
-     echo   '<div class="container">';
-     echo "<h5>No hay platos </h5>"; 
-    echo '</div>
-     </div>';
+    echo "<script languaje='javascript'>alert('Estimado cliente, El restaurant se encuentra fuera de horario de atención.');</script>";
+       echo"<script>  
+        window.location.href='index.php';
+        </script>";
   }
 
   $db=null;
@@ -328,85 +260,99 @@ function listarPlatos($id_restaurant){
 function listarPlatos2($id_restaurant,$id_tipo){
 
   $db = conecta();
+  $query="Select hora_apertura,hora_cierre from tbl_restaurant where CURTIME() between hora_apertura and hora_cierre 
+    and id_restaurant=:id_restaurant";
+    $horario=$db->prepare($query);
+    if($horario->execute(array(":id_restaurant"=>$id_restaurant)) && $horario->rowCount()>0 ){
+      $proceda=true;
+    }else{
+      $proceda=false;
+    } 
+  if($proceda){
   
-  
-    $consulta = "SELECT r.id_restaurant,tp.*, p.*,im.imagen_plato from tbl_restaurant r,tbl_plato p,tbl_tipo_plato tp,tbl_imagen_plato im where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and im.id_plato=p.id_plato and p.estado_plato = 1 and p.id_tipo_plato=tp.id_tipo_plato and 
-       p.id_tipo_plato=:id_tipo ORDER BY p.precio ASC";
-   
-  $resultado= $db->prepare($consulta);
-   
-    if($resultado->execute(array(":id_restaurant"=>$id_restaurant,":id_tipo"=>$id_tipo)) && $resultado->rowCount()>0){
-    $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
-    $count=0;
-    foreach ($rows as $row) {
-    echo '<div class="col-xs-6 col-sm-3 product-grids"> ';
-     echo   '<div class="flip-container">';
-     echo     '<div class="flipper agile-products">';  
-     echo       '<div class="front"> ';
-                  $rutaCompleta=$row['imagen_plato'];
-                  $ruta=substr($rutaCompleta,6);
-     echo         '<img src="'.$ruta.'" style="width: 640px; height:170px" class="img-responsive" alt=" " > ';
-              if($count%2==0){
-                echo '<div class="agile-product-text"> '; 
-              }else{
-                echo '<div class="agile-product-text agile-product-text2 "> ';
-              }                
-              $nombrePlato=$row['nombre_plato'];
+      $consulta = "SELECT r.id_restaurant,tp.*, p.*,im.imagen_plato from tbl_restaurant r,tbl_plato p,tbl_tipo_plato tp,tbl_imagen_plato im where p.id_restaurant=:id_restaurant and r.id_restaurant=p.id_restaurant and im.id_plato=p.id_plato and p.estado_plato = 1 and p.id_tipo_plato=tp.id_tipo_plato and 
+         p.id_tipo_plato=:id_tipo ORDER BY p.precio ASC";
+     
+    $resultado= $db->prepare($consulta);
+     
+      if($resultado->execute(array(":id_restaurant"=>$id_restaurant,":id_tipo"=>$id_tipo)) && $resultado->rowCount()>0){
+      $rows = $resultado->fetchAll(PDO::FETCH_ASSOC);
+      $count=0;
+      foreach ($rows as $row) {
+      echo '<div class="col-xs-6 col-sm-3 product-grids"> ';
+       echo   '<div class="flip-container">';
+       echo     '<div class="flipper agile-products">';  
+       echo       '<div class="front"> ';
+                    $rutaCompleta=$row['imagen_plato'];
+                    $ruta=substr($rutaCompleta,6);
+       echo         '<img src="'.$ruta.'" style="width: 640px; height:170px" class="img-responsive" alt=" " > ';
+                if($count%2==0){
+                  echo '<div class="agile-product-text"> '; 
+                }else{
+                  echo '<div class="agile-product-text agile-product-text2 "> ';
+                }                
+                $nombrePlato=$row['nombre_plato'];
+                if(strlen($nombrePlato)<=19){
+                   echo "<h5>".$nombrePlato."</h5>";
+                 }else{
+                  echo "<h5>".substr($row['nombre_plato'],0,15)."...</h5>";
+                 }   
+              echo "</div>
+                  </div> "; 
+              echo  '<div class="back">';
               if(strlen($nombrePlato)<=19){
-                 echo "<h5>".$nombrePlato."</h5>";
-               }else{
-                echo "<h5>".substr($row['nombre_plato'],0,15)."...</h5>";
-               }   
-            echo "</div>
-                </div> "; 
-            echo  '<div class="back">';
-            if(strlen($nombrePlato)<=19){
-                 echo "<h4>".$nombrePlato."</h4>";
-               }else{
-                echo "<h4>".substr($row['nombre_plato'],0,15)."...</h4>";
-               }             
-            echo  "<p>"."Tiempo de preparacion:"." ".$row['tiempo_preparacion']." min."."</p>";
-              if(isset($row['precio_oferta'])){
-                      echo  "<h6><sup>$</sup>".$row['precio_oferta']."</h6>";
-                    }else{
-              echo  "<h6><sup>$</sup>".$row['precio']."</h6>";
-                    }
-            echo    '<form action="#" method="post" name="form_platos" onSubmit="">
-                    <input type="hidden" name="id_restaurant" id="id_restaurant" value="'.$row['id_restaurant'].'" > 
-                    <input type="hidden" name="id_plato" id="id_plato" value="'.$row['id_plato'].'" > 
-                    <input type="hidden" name="cmd" value="_cart">
-                    <input type="hidden" name="add" value="1"> 
-                    <input type="hidden" name="w3ls_item" value="'.$row['nombre_plato'].'"> ';
-                      if(isset($row['precio_oferta'])){ 
-                 echo ' <input type="hidden" name="amount" value="'.$row['precio_oferta'].'"> ';        
+                   echo "<h4>".$nombrePlato."</h4>";
+                 }else{
+                  echo "<h4>".substr($row['nombre_plato'],0,15)."...</h4>";
+                 }             
+              echo  "<p>"."Tiempo de preparacion:"." ".$row['tiempo_preparacion']." min."."</p>";
+                if(isset($row['precio_oferta'])){
+                        echo  "<h6><sup>$</sup>".$row['precio_oferta']."</h6>";
                       }else{
-                echo ' <input type="hidden" name="amount" value="'.$row['precio'].'"> ';
+                echo  "<h6><sup>$</sup>".$row['precio']."</h6>";
                       }
-                     if(isset($_SESSION['id_cliente'])){
-                echo '<button type="submit" class="w3ls-cart pw3ls-cart"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Agregar</button>';
-                    }else{
-                echo ' <a href="login.php" >Iniciar sesión</a>  ';      
-                    }
-                echo ' 
-                       <span class="w3-agile-line"> </span>                    
-                    <a class="buscame" id="'.$row['id_plato'].'" href="" data-toggle="modal" data-target="#myModal1">Más</a> 
-                  </form>
+              echo    '<form action="#" method="post" name="form_platos" onSubmit="">
+                      <input type="hidden" name="id_restaurant" id="id_restaurant" value="'.$row['id_restaurant'].'" > 
+                      <input type="hidden" name="id_plato" id="id_plato" value="'.$row['id_plato'].'" > 
+                      <input type="hidden" name="cmd" value="_cart">
+                      <input type="hidden" name="add" value="1"> 
+                      <input type="hidden" name="w3ls_item" value="'.$row['nombre_plato'].'"> ';
+                        if(isset($row['precio_oferta'])){ 
+                   echo ' <input type="hidden" name="amount" value="'.$row['precio_oferta'].'"> ';        
+                        }else{
+                  echo ' <input type="hidden" name="amount" value="'.$row['precio'].'"> ';
+                        }
+                       if(isset($_SESSION['id_cliente'])){
+                  echo '<button type="submit" class="w3ls-cart pw3ls-cart"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Agregar</button>';
+                      }else{
+                  echo ' <a href="login.php" >Iniciar sesión</a>  ';      
+                      }
+                  echo ' 
+                         <span class="w3-agile-line"> </span>                    
+                      <a class="buscame" id="'.$row['id_plato'].'" href="" data-toggle="modal" data-target="#myModal1">Más</a> 
+                    </form>
+                  </div>
                 </div>
-              </div>
-            </div> 
-          </div>';
-      $count=$count+1;
-    }
-    
-  }else{
-    
-     echo '<div class="col-xs-6 col-sm-4 product-grids"> ';
-     echo   '<div class="container">';
-     echo "<h5>No hay platos </h5>"; 
-    echo '</div>
-     </div>';
+              </div> 
+            </div>';
+        $count=$count+1;
+      }
+      
+    }else{
+      
+       echo '<div class="col-xs-6 col-sm-4 product-grids"> ';
+       echo   '<div class="container">';
+       echo "<h5>No hay platos </h5>"; 
+      echo '</div>
+       </div>';
 
-  }
+    }
+   }else{
+    echo "<script languaje='javascript'>alert('Estimado cliente, El restaurant se encuentra fuera de horario de atención.');</script>";
+       echo"<script>  
+        window.location.href='index.php';
+        </script>";
+  }  
 
   $db=null;
 }
@@ -646,7 +592,7 @@ $consulta = "SELECT s.fecha_hora, s.id_solicitud,r.nombre_restaurant,r.id_restau
       $direccion=$row['direccion'];
       $estado_solicitud=$row['estado_solicitud'];
        if($estado_solicitud=="cerrado")  $estado_solicitud="entregado";
-      $consulta2="SELECT MAX(p.tiempo_preparacion)as tiempo_maximo from tbl_detalle_solicitud ds, tbl_solicitud s, tbl_plato p where s.id_restaurant=$id_restaurant and ds.id_solicitud=s.id_solicitud and p.id_plato=ds.id_plato and s.estado_solicitud='pagado' and s.id_solicitud=$id_solicitud";
+      $consulta2="SELECT MAX(p.tiempo_preparacion) as tiempo_maximo from tbl_detalle_solicitud ds, tbl_solicitud s, tbl_plato p where s.id_restaurant=$id_restaurant and ds.id_solicitud=s.id_solicitud and p.id_plato=ds.id_plato and s.estado_solicitud='pagado' and s.id_solicitud=$id_solicitud";
       $resultado2= $db->prepare($consulta2);
       $resultado2->execute();
       $rows2 = $resultado2->fetchAll(PDO::FETCH_ASSOC);

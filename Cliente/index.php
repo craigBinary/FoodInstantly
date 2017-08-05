@@ -1,9 +1,4 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+
 <?php
 session_start();
 ?>
@@ -11,6 +6,7 @@ session_start();
 <html lang="es">
 <head>
 <title>Home Food Instantly</title>
+ <link rel="shortcut icon" type="image/x-icon" href="img/ico.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -114,8 +110,9 @@ session_start();
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>
 	<script>
+		
         w3ls.render();
-
+        w3ls.reset(true);       
         w3ls.cart.on('w3sb_checkout', function (evt) {
         	var items, len, i;
 
@@ -123,6 +120,7 @@ session_start();
         		items = this.items();
 
         		for (i = 0, len = items.length; i < len; i++) {
+        			
         		}
         	}
         });
